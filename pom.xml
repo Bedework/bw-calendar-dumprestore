@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.bedework</groupId>
+		<artifactId>bedework-parent</artifactId>
+		<version>80</version>
+	</parent>
+
+	<artifactId>bw-calendar-dumprestore</artifactId>
+	<version>4.2.0-SNAPSHOT</version>
+	<name>Bedework: calendar - dump/restore</name>
+
+	<dependencies>
+		<!-- Project Dependencies -->
+		<dependency>
+			<groupId>org.bedework.caleng</groupId>
+			<artifactId>bw-calendar-engine-api</artifactId>
+		</dependency>
+
+		<!-- Bedework Dependencies -->
+
+		<dependency>
+			<groupId>org.bedework</groupId>
+			<artifactId>bw-calendar-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bedework</groupId>
+			<artifactId>bw-calendar-convert</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bedework</groupId>
+			<artifactId>bw-calendar-facade</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bedework</groupId>
+			<artifactId>bw-util-jmx</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bedework</groupId>
+			<artifactId>bw-util-misc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bedework</groupId>
+			<artifactId>bw-util-tz</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bedework</groupId>
+			<artifactId>bw-util2-calendar</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-digester</groupId>
+			<artifactId>commons-digester</artifactId>
+		</dependency>
+	</dependencies>
+</project>
