@@ -135,9 +135,8 @@ public class DumpGlobals extends Counters {
   }
 
   /**
-   * @throws CalFacadeException on error
    */
-  public void close() throws CalFacadeException {
+  public void close() {
     try {
       if (xml != null) {
         xml.flush();

@@ -22,7 +22,6 @@ import org.bedework.calfacade.BwCalendar;
 import org.bedework.calfacade.BwEvent;
 import org.bedework.calfacade.BwPrincipal;
 import org.bedework.calfacade.BwResource;
-import org.bedework.calfacade.exc.CalFacadeException;
 import org.bedework.calfacade.svc.BwPreferences;
 import org.bedework.calfacade.svc.EventInfo;
 import org.bedework.calsvci.CalendarsI;
@@ -117,9 +116,8 @@ public class DumpPrincipal extends Dumper {
   /**
    * @param pr the principal
    * @return true if ok
-   * @throws CalFacadeException on error
    */
-  public boolean open(final BwPrincipal pr) throws CalFacadeException {
+  public boolean open(final BwPrincipal pr) {
     this.pr = pr;
     if (!open(Utils.principalDirPath(pr))) {
       return false;
@@ -174,17 +172,15 @@ public class DumpPrincipal extends Dumper {
   }
 
   /**
-   * @throws CalFacadeException on error
    */
-  public void close() throws CalFacadeException {
+  public void close() {
     getDi().endPrincipal(pr);
   }
 
   /** Dump everything owned by this principal
    *
-   * @throws CalFacadeException on error
    */
-  public void doDump() throws CalFacadeException {
+  public void doDump() {
     final File f = makeFile("principal.xml");
 
     pr.dump(f);
@@ -223,7 +219,7 @@ public class DumpPrincipal extends Dumper {
   }
 
   protected void dumpCol(final BwCalendar col, 
-                         final boolean doChildren) throws CalFacadeException {
+                         final boolean doChildren) {
     final CalendarsI colsI = getSvc().getCalendarsHandler();
 
     try {

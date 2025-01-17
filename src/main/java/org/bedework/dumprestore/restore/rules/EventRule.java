@@ -26,6 +26,7 @@ import org.bedework.calfacade.BwEventObj;
 import org.bedework.calfacade.BwEventProxy;
 import org.bedework.calfacade.BwPrincipal;
 import org.bedework.calfacade.base.StartEndComponent;
+import org.bedework.calfacade.exc.CalFacadeErrorCode;
 import org.bedework.calfacade.exc.CalFacadeException;
 import org.bedework.calfacade.svc.EventInfo;
 import org.bedework.calfacade.util.BwDateTimeUtil;
@@ -231,7 +232,7 @@ public class EventRule extends EntityRule {
         globals.rintf.restoreEvent(ei);
       }
     } catch (CalFacadeException cfe) {
-      if (cfe.getMessage().equals(CalFacadeException.noRecurrenceInstances)) {
+      if (cfe.getMessage().equals(CalFacadeErrorCode.noRecurrenceInstances)) {
         error("Event has no recurrence instances - not restored." +
               entity.getUid() + "\n" + atLine());
       } else {

@@ -19,7 +19,6 @@
 package org.bedework.dumprestore.dump.dumpling;
 
 import org.bedework.calfacade.BwCalendar;
-import org.bedework.calfacade.exc.CalFacadeException;
 import org.bedework.calfacade.wrappers.CalendarWrapper;
 import org.bedework.dumprestore.AliasInfo;
 import org.bedework.dumprestore.Defs;
@@ -88,7 +87,7 @@ public class ExtSubs implements Defs, Logged {
     }
   }
 
-  private BwCalendar unwrap(final BwCalendar val) throws CalFacadeException {
+  private BwCalendar unwrap(final BwCalendar val) {
     if (val == null) {
       return null;
     }

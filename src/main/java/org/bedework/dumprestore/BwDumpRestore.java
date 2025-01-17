@@ -1357,7 +1357,7 @@ public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
    * @return svci object
    * @throws CalFacadeException on fatal error
    */
-  private CalSvcI getSvci(final String owner, final boolean publick) throws CalFacadeException {
+  private CalSvcI getSvci(final String owner, final boolean publick) {
     if ((svci != null) && svci.isOpen()) {
       return svci;
     }

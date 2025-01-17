@@ -82,7 +82,7 @@ public class Dumper implements Logged {
     return true;
   }
 
-  protected void dumpCategories(final boolean publick) throws CalFacadeException {
+  protected void dumpCategories(final boolean publick) {
     try {
       makeDir(Defs.categoriesDirName, false);
 
@@ -104,7 +104,7 @@ public class Dumper implements Logged {
     }
   }
 
-  protected void dumpLocations(final boolean publick) throws CalFacadeException {
+  protected void dumpLocations(final boolean publick) {
     try {
       makeDir(Defs.locationsDirName, false);
 
@@ -126,7 +126,7 @@ public class Dumper implements Logged {
     }
   }
 
-  protected void dumpContacts(final boolean publick) throws CalFacadeException {
+  protected void dumpContacts(final boolean publick) {
     try {
       makeDir(Defs.contactsDirName, false);
 
@@ -165,9 +165,8 @@ public class Dumper implements Logged {
   }
   
   /**
-   * @throws CalFacadeException on error
    */
-  protected void close() throws CalFacadeException {
+  protected void close() {
   }
 
   /**
@@ -181,9 +180,8 @@ public class Dumper implements Logged {
    * 
    * @param name filename
    * @return a File object
-   * @throws CalFacadeException on error
    */
-  protected File makeFile(final String name) throws CalFacadeException {
+  protected File makeFile(final String name) {
     try {
       String fname = name.replace('/', '_');
       

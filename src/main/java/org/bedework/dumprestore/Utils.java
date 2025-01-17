@@ -90,7 +90,7 @@ public class Utils implements Logged {
     return Util.buildPath(true, "/", s, pr.getPrincipalRef());
   }
 
-  public Path createFile(final String path) throws CalFacadeException {
+  public Path createFile(final String path) {
     try {
       final Path pathToFile = Paths.get(path);
       Files.createDirectories(pathToFile.getParent());
@@ -104,7 +104,7 @@ public class Utils implements Logged {
     return delete(new File(path), false);
   }
 
-  public static boolean makeDir(final String path) throws CalFacadeException {
+  public static boolean makeDir(final String path) {
     final File f = new File(path);
 
     if (!f.exists()) {
@@ -119,7 +119,7 @@ public class Utils implements Logged {
     return false;
   }
 
-  public static File directory(final String path) throws CalFacadeException {
+  public static File directory(final String path) {
     final File f = new File(path);
 
     if (!f.exists()) {
@@ -170,7 +170,7 @@ public class Utils implements Logged {
 
   public static File file(final File dir,
                           final String name,
-                          final boolean mustExist) throws CalFacadeException {
+                          final boolean mustExist) {
     final File f = new File(dir.getAbsolutePath(), name);
 
     if (f.exists() && !f.isFile()) {
@@ -201,7 +201,7 @@ public class Utils implements Logged {
     return dir;
   }
 
-  public static File file(final String path) throws CalFacadeException {
+  public static File file(final String path) {
     final File f = new File(path);
 
     if (!f.exists() || !f.isFile()) {
@@ -219,7 +219,7 @@ public class Utils implements Logged {
    * @exception CalFacadeException Some error occurred.
    */
   public static Document parseXml(final Reader rdr,
-                                  final boolean nameSpaced) throws CalFacadeException {
+                                  final boolean nameSpaced) {
     if (rdr == null) {
       // No content?
       return null;

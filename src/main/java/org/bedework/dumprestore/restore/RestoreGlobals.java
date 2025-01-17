@@ -77,7 +77,7 @@ public class RestoreGlobals extends Counters {
     return groupPrincipalRootLen;
   }
 
-  public static void setRoots(final CalSvcI svc) throws CalFacadeException {
+  public static void setRoots(final CalSvcI svc) {
     if (principalRoot != null) {
       return;
     }
@@ -667,7 +667,7 @@ public class RestoreGlobals extends Counters {
     }
 
     @Override
-    public AccessPrincipal getPrincipal(final String href) throws CalFacadeException {
+    public AccessPrincipal getPrincipal(final String href) {
       try {
         return RestoreGlobals.this.getPrincipal(href);
       } catch (final Throwable t) {

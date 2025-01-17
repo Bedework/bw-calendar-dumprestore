@@ -28,7 +28,6 @@ import org.bedework.calfacade.BwLocation;
 import org.bedework.calfacade.BwPrincipal;
 import org.bedework.calfacade.BwResource;
 import org.bedework.calfacade.BwSystem;
-import org.bedework.calfacade.exc.CalFacadeException;
 import org.bedework.calfacade.svc.BwAdminGroup;
 import org.bedework.calfacade.svc.BwAuthUser;
 import org.bedework.calfacade.svc.BwCalSuite;
@@ -168,11 +167,11 @@ public class DumpAll extends Dumpling {
     tagEnd(sectionTag);
   }
 
-  private void open() throws CalFacadeException {
+  private void open() {
     globals.svci.beginTransaction();
   }
 
-  private void close() throws CalFacadeException {
+  private void close() {
     globals.svci.endTransaction();
   }
 }

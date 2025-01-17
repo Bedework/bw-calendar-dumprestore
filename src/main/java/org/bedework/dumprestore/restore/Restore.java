@@ -28,7 +28,6 @@ import org.bedework.access.WhoDefs;
 import org.bedework.calfacade.BwCalendar;
 import org.bedework.calfacade.BwPrincipal;
 import org.bedework.calfacade.configs.BasicSystemProperties;
-import org.bedework.calfacade.exc.CalFacadeException;
 import org.bedework.calfacade.svc.BwAdminGroup;
 import org.bedework.calfacade.svc.BwAuthUser;
 import org.bedework.calfacade.svc.CalSvcIPars;
@@ -138,12 +137,11 @@ public class Restore implements Logged, Defs, AutoCloseable {
    * @param merge don't replace entities - add new ones.
    * @param info - to track status
    * @return true if restored - otherwise there's a message
-   * @throws CalFacadeException on error
    */
   public boolean restoreUser(final String account,
                              final boolean merge,
                              final boolean dryRun,
-                             final InfoLines info) throws CalFacadeException {
+                             final InfoLines info) {
     globals.setRoots(getSvci());
     final BwPrincipal userPr = BwPrincipal.makeUserPrincipal();
 
@@ -173,11 +171,10 @@ public class Restore implements Logged, Defs, AutoCloseable {
    * @param dryRun true means just pretend.
    * @param info - to track status
    * @return true if restored - otherwise there's a message
-   * @throws CalFacadeException on error
    */
   public boolean restorePublic(final boolean merge,
                                final boolean dryRun,
-                               final InfoLines info) throws CalFacadeException {
+                               final InfoLines info) {
     globals.info = info;
     globals.setMerging(merge);
     globals.setDryRun(dryRun);

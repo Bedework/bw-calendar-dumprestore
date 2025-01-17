@@ -20,7 +20,6 @@ package org.bedework.dumprestore.prdump;
 
 import org.bedework.calfacade.BwCalendar;
 import org.bedework.calfacade.configs.BasicSystemProperties;
-import org.bedework.calfacade.exc.CalFacadeException;
 import org.bedework.calsvci.CalendarsI;
 import org.bedework.dumprestore.Defs;
 import org.bedework.dumprestore.dump.DumpGlobals;
@@ -53,9 +52,8 @@ public class DumpSystem extends DumpPrincipal {
 
   /** Dump everything owned by this principal
    *
-   * @throws CalFacadeException on error
    */
-  public void doDump() throws CalFacadeException {
+  public void doDump() {
     /* Dump calendar collections - as we go we will create location, contact and
      * category directories.
      */

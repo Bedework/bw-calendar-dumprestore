@@ -51,9 +51,8 @@ public class RestorePrincipal extends Restorer {
   /**
    * @param pr the principal
    * @return true if ok
-   * @throws CalFacadeException on error
    */
-  public boolean open(final BwPrincipal pr) throws CalFacadeException {
+  public boolean open(final BwPrincipal pr) {
     this.pr = pr;
     pushPath(globals.getDirPath());
     if (openDir(Utils.principalDirPath(pr)) == null) {
@@ -75,9 +74,8 @@ public class RestorePrincipal extends Restorer {
 
   /** Restore everything owned by this principal
    *
-   * @throws CalFacadeException on error
    */
-  public boolean doRestore() throws CalFacadeException {
+  public boolean doRestore() {
     try {
       final String prPath = topPath();
       

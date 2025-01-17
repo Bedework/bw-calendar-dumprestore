@@ -88,9 +88,8 @@ public class Restorer implements Logged, Closeable {
 
   /**
    * @return true if ok
-   * @throws CalFacadeException on error
    */
-  boolean open() throws CalFacadeException {
+  boolean open() {
     pathStack.clear();
     pushPath(globals.getDirPath());
 
@@ -101,7 +100,7 @@ public class Restorer implements Logged, Closeable {
     return true;
   }
 
-  protected void restoreCategories() throws CalFacadeException {
+  protected void restoreCategories() {
     try {
       final Path p = openDir(Defs.categoriesDirName);
 
@@ -122,7 +121,7 @@ public class Restorer implements Logged, Closeable {
     }
   }
 
-  protected void restoreLocations() throws CalFacadeException {
+  protected void restoreLocations() {
     try {
       final Path p = openDir(Defs.locationsDirName);
       
@@ -143,7 +142,7 @@ public class Restorer implements Logged, Closeable {
     }
   }
 
-  protected void restoreContacts() throws CalFacadeException {
+  protected void restoreContacts() {
     try {
       final Path p = openDir(Defs.contactsDirName);
 
@@ -164,7 +163,7 @@ public class Restorer implements Logged, Closeable {
     }
   }
 
-  protected void restoreCollections() throws CalFacadeException {
+  protected void restoreCollections() {
     final Path p = openDir(Defs.collectionsDirName);
 
     if (p == null) {
@@ -175,7 +174,7 @@ public class Restorer implements Logged, Closeable {
     restoreCollections(p);
   }
 
-  protected void restoreCollections(final Path p) throws CalFacadeException {
+  protected void restoreCollections(final Path p) {
     try {
       final DirRestore<BwCalendar> colRestore =
               new DirRestore<>(p,

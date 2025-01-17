@@ -49,9 +49,8 @@ public class RestorePublic extends Restorer {
 
   /**
    * @return true if ok
-   * @throws CalFacadeException on error
    */
-  public boolean open() throws CalFacadeException {
+  public boolean open() {
     pushPath(globals.getDirPath());
     if (openDir("public") == null) {
       return false;
@@ -68,9 +67,8 @@ public class RestorePublic extends Restorer {
 
   /** Restore everything owned by this principal
    *
-   * @throws CalFacadeException on error
    */
-  public boolean doRestore() throws CalFacadeException {
+  public boolean doRestore() {
     try {
       final String prPath = topPath();
       
