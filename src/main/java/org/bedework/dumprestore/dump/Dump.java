@@ -18,8 +18,8 @@
 */
 package org.bedework.dumprestore.dump;
 
+import org.bedework.base.exc.BedeworkException;
 import org.bedework.calfacade.BwPrincipal;
-import org.bedework.calfacade.exc.CalFacadeException;
 import org.bedework.calfacade.svc.CalSvcIPars;
 import org.bedework.calsvci.CalSvcFactoryDefault;
 import org.bedework.calsvci.CalSvcI;
@@ -200,14 +200,14 @@ public class Dump implements Logged, Defs {
           open = true;
           dumpPr.doDump();
         }
-      } catch (final CalFacadeException cfe) {
-        error(cfe);
+      } catch (final BedeworkException be) {
+        error(be);
       } finally {
         if (open) {
           try {
             dumpPr.close();
-          } catch (final CalFacadeException cfe){
-            error(cfe);
+          } catch (final BedeworkException be) {
+            error(be);
           }
         }
       }

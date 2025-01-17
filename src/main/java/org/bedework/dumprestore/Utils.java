@@ -15,9 +15,9 @@
 */
 package org.bedework.dumprestore;
 
+import org.bedework.base.exc.BedeworkException;
 import org.bedework.calfacade.BwPrincipal;
 import org.bedework.calfacade.base.BwDbentity;
-import org.bedework.calfacade.exc.CalFacadeException;
 import org.bedework.util.logging.BwLogger;
 import org.bedework.util.logging.Logged;
 import org.bedework.util.misc.Util;
@@ -96,7 +96,7 @@ public class Utils implements Logged {
       Files.createDirectories(pathToFile.getParent());
       return Files.createFile(pathToFile);
     } catch (final Throwable t) {
-      throw new CalFacadeException(t);
+      throw new BedeworkException(t);
     }
   }
 
@@ -112,7 +112,7 @@ public class Utils implements Logged {
     }
 
     if (!f.isDirectory()) {
-      throw new CalFacadeException(f.getAbsolutePath() +
+      throw new BedeworkException(f.getAbsolutePath() +
                                   " must be a directory");
     }
 
@@ -127,7 +127,7 @@ public class Utils implements Logged {
     } 
     
     if (!f.isDirectory()) {
-      throw new CalFacadeException(f.getAbsolutePath() +
+      throw new BedeworkException(f.getAbsolutePath() +
                                            " must be a directory");
     }
 
@@ -174,13 +174,13 @@ public class Utils implements Logged {
     final File f = new File(dir.getAbsolutePath(), name);
 
     if (f.exists() && !f.isFile()) {
-      throw new CalFacadeException(name + " in " +
+      throw new BedeworkException(name + " in " +
                                   f.getAbsolutePath() +
                                   " must be a file");
     }
 
     if (!f.exists() && mustExist) {
-      throw new CalFacadeException(name + " in " +
+      throw new BedeworkException(name + " in " +
                                   f.getAbsolutePath() +
                                   " must exist and be a file");
     }
@@ -205,7 +205,7 @@ public class Utils implements Logged {
     final File f = new File(path);
 
     if (!f.exists() || !f.isFile()) {
-      throw new CalFacadeException(path + " must exist and be a file");
+      throw new BedeworkException(path + " must exist and be a file");
     }
 
     return f;
@@ -216,7 +216,6 @@ public class Utils implements Logged {
    * @param rdr        Reader
    * @param nameSpaced true if this document has namespaces
    * @return Document  Parsed body or null for no body
-   * @exception CalFacadeException Some error occurred.
    */
   public static Document parseXml(final Reader rdr,
                                   final boolean nameSpaced) {
@@ -233,7 +232,7 @@ public class Utils implements Logged {
 
       return builder.parse(new InputSource(rdr));
     } catch (final Throwable t) {
-      throw new CalFacadeException(t);
+      throw new BedeworkException(t);
     }
   }
 

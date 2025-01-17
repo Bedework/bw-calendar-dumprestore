@@ -18,9 +18,9 @@
 */
 package org.bedework.dumprestore.nrestore;
 
+import org.bedework.base.exc.BedeworkException;
 import org.bedework.calfacade.BwPrincipal;
 import org.bedework.calfacade.BwUser;
-import org.bedework.calfacade.exc.CalFacadeException;
 import org.bedework.calfacade.svc.BwPreferences;
 import org.bedework.dumprestore.Counters;
 import org.bedework.dumprestore.Utils;
@@ -117,10 +117,10 @@ public class RestorePrincipal extends Restorer {
       restoreLocations();
       
       restoreCollections();
-    } catch (final CalFacadeException ce) {
-      throw ce;
+    } catch (final BedeworkException be) {
+      throw be;
     } catch (final Throwable t) {
-      throw new CalFacadeException(t);
+      throw new BedeworkException(t);
     }
     return true;
   }

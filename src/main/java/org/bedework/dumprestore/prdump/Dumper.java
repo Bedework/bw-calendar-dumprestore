@@ -18,10 +18,10 @@
 */
 package org.bedework.dumprestore.prdump;
 
+import org.bedework.base.exc.BedeworkException;
 import org.bedework.calfacade.BwCategory;
 import org.bedework.calfacade.BwContact;
 import org.bedework.calfacade.BwLocation;
-import org.bedework.calfacade.exc.CalFacadeException;
 import org.bedework.calsvci.CalSvcI;
 import org.bedework.calsvci.DumpIntf;
 import org.bedework.dumprestore.AliasInfo;
@@ -199,18 +199,18 @@ public class Dumper implements Logged {
         }
         
         if (!f.createNewFile()) {
-          throw new CalFacadeException("Unable to create file " + p);
+          throw new BedeworkException("Unable to create file " + p);
         }
 
         return f;
       }
-    } catch (final CalFacadeException cfe) {
-      throw cfe;
+    } catch (final BedeworkException be) {
+      throw be;
     } catch (final Throwable t) {
-      throw new CalFacadeException(t);
+      throw new BedeworkException(t);
     }
     
-    throw new CalFacadeException("Unable to create file " + name);
+    throw new BedeworkException("Unable to create file " + name);
   }
 
   /** Add a directory using stack top as path and pushes the new path

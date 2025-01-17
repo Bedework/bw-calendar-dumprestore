@@ -21,6 +21,7 @@ package org.bedework.dumprestore.restore;
 import org.bedework.access.AccessException;
 import org.bedework.access.AccessPrincipal;
 import org.bedework.access.WhoDefs;
+import org.bedework.base.exc.BedeworkException;
 import org.bedework.calfacade.BwCalendar;
 import org.bedework.calfacade.BwEventAnnotation;
 import org.bedework.calfacade.BwGroup;
@@ -29,7 +30,6 @@ import org.bedework.calfacade.BwUser;
 import org.bedework.calfacade.DirectoryInfo;
 import org.bedework.calfacade.configs.Configurations;
 import org.bedework.calfacade.configs.SystemProperties;
-import org.bedework.calfacade.exc.CalFacadeException;
 import org.bedework.calfacade.svc.BwAdminGroup;
 import org.bedework.calfacade.svc.PrincipalInfo;
 import org.bedework.calsvci.CalSvcFactoryDefault;
@@ -671,7 +671,7 @@ public class RestoreGlobals extends Counters {
       try {
         return RestoreGlobals.this.getPrincipal(href);
       } catch (final Throwable t) {
-        throw new CalFacadeException(t);
+        throw new BedeworkException(t);
       }
     }
 

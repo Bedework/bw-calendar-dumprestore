@@ -18,12 +18,12 @@
 */
 package org.bedework.dumprestore.nrestore;
 
+import org.bedework.base.exc.BedeworkException;
 import org.bedework.calfacade.BwCalendar;
 import org.bedework.calfacade.BwCategory;
 import org.bedework.calfacade.BwContact;
 import org.bedework.calfacade.BwLocation;
 import org.bedework.calfacade.base.BwDbentity;
-import org.bedework.calfacade.exc.CalFacadeException;
 import org.bedework.calsvci.CalSvcI;
 import org.bedework.calsvci.RestoreIntf;
 import org.bedework.dumprestore.AliasInfo;
@@ -94,7 +94,7 @@ public class Restorer implements Logged, Closeable {
     pushPath(globals.getDirPath());
 
     if (globals.getDirPath() == null) {
-      throw new CalFacadeException("Null directory name");
+      throw new BedeworkException("Null directory name");
     }
 
     return true;
@@ -115,7 +115,7 @@ public class Restorer implements Logged, Closeable {
               FileVisitOption.FOLLOW_LINKS);
       Files.walkFileTree(p, opts, Integer.MAX_VALUE, dirRestore);
     } catch (final IOException ie) {
-      throw new CalFacadeException(ie);
+      throw new BedeworkException(ie);
     } finally {
       popPath();
     }
@@ -136,7 +136,7 @@ public class Restorer implements Logged, Closeable {
               FileVisitOption.FOLLOW_LINKS);
       Files.walkFileTree(p, opts, Integer.MAX_VALUE, dirRestore);
     } catch (final IOException ie) {
-      throw new CalFacadeException(ie);
+      throw new BedeworkException(ie);
     } finally {
       popPath();
     }
@@ -157,7 +157,7 @@ public class Restorer implements Logged, Closeable {
               FileVisitOption.FOLLOW_LINKS);
       Files.walkFileTree(p, opts, Integer.MAX_VALUE, dirRestore);
     } catch (final IOException ie) {
-      throw new CalFacadeException(ie);
+      throw new BedeworkException(ie);
     } finally {
       popPath();
     }
@@ -183,7 +183,7 @@ public class Restorer implements Logged, Closeable {
               FileVisitOption.FOLLOW_LINKS);
       Files.walkFileTree(p, opts, Integer.MAX_VALUE, colRestore);
     } catch (final IOException ie) {
-      throw new CalFacadeException(ie);
+      throw new BedeworkException(ie);
     } finally {
       popPath();
     }

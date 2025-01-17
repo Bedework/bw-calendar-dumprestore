@@ -19,6 +19,7 @@
 package org.bedework.dumprestore;
 
 import org.bedework.access.PrivilegeDefs;
+import org.bedework.base.exc.BedeworkAccessException;
 import org.bedework.caldav.util.sharing.AccessType;
 import org.bedework.calfacade.BwCalendar;
 import org.bedework.calfacade.BwEvent;
@@ -26,8 +27,6 @@ import org.bedework.calfacade.BwLocation;
 import org.bedework.calfacade.BwPrincipal;
 import org.bedework.calfacade.BwXproperty;
 import org.bedework.calfacade.configs.DumpRestoreProperties;
-import org.bedework.calfacade.exc.CalFacadeAccessException;
-import org.bedework.calfacade.exc.CalFacadeException;
 import org.bedework.calfacade.svc.CalSvcIPars;
 import org.bedework.calfacade.svc.EventInfo;
 import org.bedework.calsvci.CalSvcFactoryDefault;
@@ -319,7 +318,7 @@ public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
             if ((ct % 100) == 0) {
               info("Checked " + ct + " collections");
             }
-          } catch (final CalFacadeAccessException cae) {
+          } catch (final BedeworkAccessException ignored) {
             accessErrorCt++;
 
             if ((accessErrorCt % 100) == 0) {
@@ -429,7 +428,7 @@ public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
               /* Try to fetch as sharee */
               try {
                 targetCol = svci.getCalendarsHandler().get(target);
-              } catch (final CalFacadeAccessException ignored) {
+              } catch (final BedeworkAccessException ignored) {
                 ai.setNoAccess(true);
                 noAccessCt++;
                 continue fix;
@@ -529,7 +528,7 @@ public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
               if ((ct % 100) == 0) {
                 info("Checked " + ct + " collections");
               }
-            } catch (final CalFacadeAccessException ignored) {
+            } catch (final BedeworkAccessException ignored) {
               noAccessCt++;
 
               if ((noAccessCt % 100) == 0) {
@@ -1355,7 +1354,6 @@ public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
   /** Get an svci object and return it. Also embed it in this object.
    *
    * @return svci object
-   * @throws CalFacadeException on fatal error
    */
   private CalSvcI getSvci(final String owner, final boolean publick) {
     if ((svci != null) && svci.isOpen()) {

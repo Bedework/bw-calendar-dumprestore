@@ -18,8 +18,8 @@
 */
 package org.bedework.dumprestore.nrestore;
 
+import org.bedework.base.exc.BedeworkException;
 import org.bedework.calfacade.BwPrincipal;
-import org.bedework.calfacade.exc.CalFacadeException;
 import org.bedework.dumprestore.Defs;
 import org.bedework.dumprestore.Utils;
 import org.bedework.dumprestore.restore.RestoreGlobals;
@@ -125,10 +125,10 @@ public class RestorePublic extends Restorer {
           restorer.doRestore();
         }
       }
-    } catch (final CalFacadeException ce) {
-      throw ce;
+    } catch (final BedeworkException be) {
+      throw be;
     } catch (final Throwable t) {
-      throw new CalFacadeException(t);
+      throw new BedeworkException(t);
     }
     return true;
   }

@@ -19,6 +19,7 @@
 
 package org.bedework.dumprestore.restore.rules;
 
+import org.bedework.base.exc.BedeworkException;
 import org.bedework.calfacade.BwDateTime;
 import org.bedework.calfacade.BwEvent;
 import org.bedework.calfacade.BwEventAnnotation;
@@ -27,7 +28,6 @@ import org.bedework.calfacade.BwEventProxy;
 import org.bedework.calfacade.BwPrincipal;
 import org.bedework.calfacade.base.StartEndComponent;
 import org.bedework.calfacade.exc.CalFacadeErrorCode;
-import org.bedework.calfacade.exc.CalFacadeException;
 import org.bedework.calfacade.svc.EventInfo;
 import org.bedework.calfacade.util.BwDateTimeUtil;
 import org.bedework.dumprestore.restore.RestoreGlobals;
@@ -231,15 +231,15 @@ public class EventRule extends EntityRule {
 
         globals.rintf.restoreEvent(ei);
       }
-    } catch (CalFacadeException cfe) {
-      if (cfe.getMessage().equals(CalFacadeErrorCode.noRecurrenceInstances)) {
+    } catch (final BedeworkException be) {
+      if (be.getMessage().equals(CalFacadeErrorCode.noRecurrenceInstances)) {
         error("Event has no recurrence instances - not restored." +
               entity.getUid() + "\n" + atLine());
       } else {
         error("Unable to save event " + entity.getUid() + "\n" + atLine());
-        cfe.printStackTrace();
+        be.printStackTrace();
       }
-    } catch (Throwable t) {
+    } catch (final Throwable t) {
       error("Unable to save event " + entity.getUid() + "\n" + atLine());
       t.printStackTrace();
     }

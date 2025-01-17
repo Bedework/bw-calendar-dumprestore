@@ -46,7 +46,7 @@
  */
 package org.bedework.dumprestore.dump;
 
-import org.bedework.calfacade.exc.CalFacadeException;
+import org.bedework.base.exc.BedeworkException;
 import org.bedework.calsvci.CalSvcI;
 import org.bedework.calsvci.DumpIntf;
 import org.bedework.dumprestore.AliasEntry;
@@ -153,7 +153,7 @@ public class DumpGlobals extends Counters {
         aliasesOut.close();
       }
     } catch (final Throwable t) {
-      throw new CalFacadeException(t);
+      throw new BedeworkException(t);
     }
   }
 }
