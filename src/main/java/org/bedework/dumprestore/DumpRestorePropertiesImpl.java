@@ -21,7 +21,7 @@ package org.bedework.dumprestore;
 import org.bedework.calfacade.configs.DumpRestoreProperties;
 import org.bedework.util.config.ConfInfo;
 import org.bedework.util.config.ConfigBase;
-import org.bedework.util.misc.ToString;
+import org.bedework.base.ToString;
 
 /**
  * @author douglm

@@ -32,7 +32,7 @@ import org.bedework.dumprestore.dump.DumpGlobals;
 import org.bedework.util.calendar.IcalendarUtil;
 import org.bedework.util.calendar.ScheduleMethods;
 import org.bedework.util.misc.Util;
-import org.bedework.util.misc.response.Response;
+import org.bedework.base.response.Response;
 
 import net.fortuna.ical4j.model.Calendar;
 
@@ -45,9 +45,9 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Consumer;
 
-import static org.bedework.util.misc.response.Response.Status.exists;
-import static org.bedework.util.misc.response.Response.Status.failed;
-import static org.bedework.util.misc.response.Response.Status.ok;
+import static org.bedework.base.response.Response.Status.exists;
+import static org.bedework.base.response.Response.Status.failed;
+import static org.bedework.base.response.Response.Status.ok;
 
 /** Dump all calendar data for the supplied principal.
  *

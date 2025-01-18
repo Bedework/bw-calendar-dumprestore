@@ -8,7 +8,7 @@
 	</parent>
 
 	<artifactId>bw-calendar-dumprestore</artifactId>
-	<version>42..1-SNAPSHOT</version>
+	<version>4.2.1-SNAPSHOT</version>
 	<name>Bedework: calendar - dump/restore</name>
 
 	<dependencies>
@@ -19,6 +19,11 @@
 		</dependency>
 
 		<!-- Bedework Dependencies -->
+
+		<dependency>
+			<groupId>org.bedework</groupId>
+			<artifactId>bw-base</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.bedework</groupId>

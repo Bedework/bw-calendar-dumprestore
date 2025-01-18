@@ -20,7 +20,7 @@ package org.bedework.dumprestore;
 
 import org.bedework.calfacade.annotations.Dump;
 import org.bedework.calfacade.base.DumpEntity;
-import org.bedework.util.misc.ToString;
+import org.bedework.base.ToString;
 
 import java.util.ArrayList;
 import java.util.List;

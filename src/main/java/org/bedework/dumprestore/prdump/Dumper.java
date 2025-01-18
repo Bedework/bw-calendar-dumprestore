@@ -29,7 +29,7 @@ import org.bedework.dumprestore.Defs;
 import org.bedework.dumprestore.dump.DumpGlobals;
 import org.bedework.util.logging.BwLogger;
 import org.bedework.util.logging.Logged;
-import org.bedework.util.misc.response.Response;
+import org.bedework.base.response.Response;
 
 import java.io.File;
 import java.nio.file.FileSystems;
@@ -39,8 +39,8 @@ import java.util.Collection;
 import java.util.Deque;
 import java.util.List;
 
-import static org.bedework.util.misc.response.Response.Status;
-import static org.bedework.util.misc.response.Response.notOk;
+import static org.bedework.base.response.Response.Status;
+import static org.bedework.base.response.Response.notOk;
 
 /** Base class for dumping. Provides logging and useful methods.
  *

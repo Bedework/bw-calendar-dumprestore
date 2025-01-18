@@ -19,7 +19,7 @@
 package org.bedework.dumprestore.restore;
 
 import org.bedework.calfacade.BwPrincipal;
-import org.bedework.util.misc.ToString;
+import org.bedework.base.ToString;
 
 /**
  * @author Mike Douglass
