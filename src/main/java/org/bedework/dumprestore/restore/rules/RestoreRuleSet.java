@@ -21,15 +21,16 @@ package org.bedework.dumprestore.restore.rules;
 import org.bedework.dumprestore.Defs;
 import org.bedework.dumprestore.restore.RestoreGlobals;
 
-import org.apache.commons.digester.Digester;
-import org.apache.commons.digester.ExtendedBaseRules;
-import org.apache.commons.digester.RuleSetBase;
+import org.apache.commons.digester3.Digester;
+import org.apache.commons.digester3.ExtendedBaseRules;
+import org.apache.commons.digester3.RuleSetBase;
 
 /**
  * @author Mike Douglass
  * @version 1.0
  */
-public class RestoreRuleSet extends RuleSetBase implements Defs {
+public class RestoreRuleSet
+        extends RuleSetBase implements Defs {
   protected RestoreGlobals globals;
 
   /** Constructor

@@ -46,10 +46,10 @@ import org.bedework.util.logging.BwLogger;
 import org.bedework.util.logging.Logged;
 import org.bedework.util.misc.Util;
 
-import org.apache.commons.digester.Digester;
-import org.apache.commons.digester.RegexMatcher;
-import org.apache.commons.digester.RegexRules;
-import org.apache.commons.digester.SimpleRegexMatcher;
+import org.apache.commons.digester3.Digester;
+import org.apache.commons.digester3.RegexMatcher;
+import org.apache.commons.digester3.RegexRules;
+import org.apache.commons.digester3.SimpleRegexMatcher;
 
 import java.io.FileInputStream;
 import java.io.InputStreamReader;

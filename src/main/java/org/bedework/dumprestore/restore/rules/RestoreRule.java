@@ -24,7 +24,7 @@ import org.bedework.dumprestore.restore.RestoreGlobals;
 import org.bedework.util.logging.BwLogger;
 import org.bedework.util.logging.Logged;
 
-import org.apache.commons.digester.Rule;
+import org.apache.commons.digester3.Rule;
 
 /**
  * @author Mike Douglass   douglm@rpi.edu

@@ -43,7 +43,7 @@ import org.bedework.util.misc.Util;
 import org.bedework.util.timezones.Timezones;
 import org.bedework.util.timezones.TimezonesException;
 
-import org.apache.commons.digester.Digester;
+import org.apache.commons.digester3.Digester;
 
 import java.util.ArrayList;
 import java.util.Collection;
