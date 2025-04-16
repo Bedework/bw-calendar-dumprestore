@@ -19,6 +19,7 @@
 package org.bedework.dumprestore.prdump;
 
 import org.bedework.base.exc.BedeworkException;
+import org.bedework.base.response.Response;
 import org.bedework.calfacade.BwCategory;
 import org.bedework.calfacade.BwContact;
 import org.bedework.calfacade.BwLocation;
@@ -29,7 +30,6 @@ import org.bedework.dumprestore.Defs;
 import org.bedework.dumprestore.dump.DumpGlobals;
 import org.bedework.util.logging.BwLogger;
 import org.bedework.util.logging.Logged;
-import org.bedework.base.response.Response;
 
 import java.io.File;
 import java.nio.file.FileSystems;
@@ -40,7 +40,6 @@ import java.util.Deque;
 import java.util.List;
 
 import static org.bedework.base.response.Response.Status;
-import static org.bedework.base.response.Response.notOk;
 
 /** Base class for dumping. Provides logging and useful methods.
  *
@@ -218,9 +217,9 @@ public class Dumper implements Logged {
    * @param name dirname
    * @return Response with status ok if created
    */
-  protected Response makeDir(final String name,
-                             final boolean pushDup) {
-    final Response resp = new Response();
+  protected Response<?> makeDir(final String name,
+                                final boolean pushDup) {
+    final var resp = new Response<>();
 
     try {
       final Path p =  FileSystems.getDefault().getPath(topPath(), name);
@@ -233,19 +232,19 @@ public class Dumper implements Logged {
         if (pushDup) {
           pushPath(p.toString());
         }
-        return notOk(resp, Status.exists,
-                              "Path " + p + " already exists.");
+        return resp.notOk(Status.exists,
+                          "Path " + p + " already exists.");
       }
 
       if (!f.mkdirs()) {
-        return notOk(resp, Status.failed,
-                     "Unable to create directory " + p);
+        return resp.notOk(Status.failed,
+                          "Unable to create directory " + p);
       }
 
       pushPath(p.toString());
       return resp;
     } catch (final Throwable t) {
-      return Response.error(resp, t);
+      return resp.error(t);
     }
   }
 
