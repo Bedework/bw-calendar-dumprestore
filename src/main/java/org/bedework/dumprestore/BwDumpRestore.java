@@ -24,7 +24,6 @@ import org.bedework.caldav.util.sharing.AccessType;
 import org.bedework.calfacade.BwCollection;
 import org.bedework.calfacade.BwEvent;
 import org.bedework.calfacade.BwLocation;
-import org.bedework.calfacade.BwPrincipal;
 import org.bedework.calfacade.BwXproperty;
 import org.bedework.calfacade.configs.DumpRestoreProperties;
 import org.bedework.calfacade.svc.CalSvcIPars;
@@ -486,9 +485,10 @@ public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
               final CalSvcI svci = getSvci(targetCol.getOwnerHref(), false);
 
               final FixAliasResult far =
-                      svci.getRestoreHandler().fixSharee(targetCol,
-                                                         ai.getOwner(),
-                                                         a);
+                      svci.getRestoreHandler()
+                          .fixSharee(targetCol,
+                                     ai.getOwner(),
+                                     a);
 
               switch (far) {
                 case ok:
@@ -659,7 +659,7 @@ public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
               }
               
               final String id = nxtId.trim();
-              if (id.length() == 0) {
+              if (id.isEmpty()) {
                 continue;
               }
               
@@ -1061,41 +1061,32 @@ public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
       aliasInfo = new HashMap<>();
 
       for (final Element child: XmlUtil.getElementsArray(el)) {
-        if (child.getTagName().equals(Defs.majorVersionTag)) {
-          continue;
-        }
-
-        if (child.getTagName().equals(Defs.minorVersionTag)) {
-          continue;
-        }
-
-        if (child.getTagName().equals(Defs.versionTag)) {
-          continue;
-        }
-
-        if (child.getTagName().equals(Defs.dumpDateTag)) {
-          continue;
-        }
-
-        if (child.getTagName().equals(Defs.extsubsTag)) {
-          for (final Element extSubEl: XmlUtil.getElementsArray(child)) {
-            externalSubs.add(fxml.fromXml(extSubEl, 
-                                          AliasInfo.class,
-                                          null));
+        switch (child.getTagName()) {
+          case Defs.majorVersionTag, Defs.minorVersionTag,
+               Defs.versionTag, Defs.dumpDateTag -> {
+            continue;
           }
+          case Defs.extsubsTag -> {
+            for (final Element extSubEl: XmlUtil.getElementsArray(
+                    child)) {
+              externalSubs.add(fxml.fromXml(extSubEl,
+                                            AliasInfo.class,
+                                            null));
+            }
 
-          continue;
-        }
-
-        if (child.getTagName().equals(Defs.aliasesTag)) {
-          for (final Element aliasEl: XmlUtil.getElementsArray(child)) {
-            final AliasEntry ae = fxml.fromXml(aliasEl,
-                                               AliasEntry.class,
-                                               null);
-            aliasInfo.put(ae.getTargetPath(), ae);
+            continue;
           }
+          case Defs.aliasesTag -> {
+            for (final Element aliasEl: XmlUtil.getElementsArray(
+                    child)) {
+              final AliasEntry ae = fxml.fromXml(aliasEl,
+                                                 AliasEntry.class,
+                                                 null);
+              aliasInfo.put(ae.getTargetPath(), ae);
+            }
 
-          continue;
+            continue;
+          }
         }
 
         return "Not an alias-info dump file: unexpected element " + child;
@@ -1219,7 +1210,7 @@ public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
     try {
       final CalSvcI svci = getSvci(getConfig().getAccount(), true);
 
-      final BwPrincipal pr = svci.getUsersHandler().getUser(account);
+      final var pr = svci.getUsersHandler().getUser(account);
 
       if (pr == null) {
         return "No principal for " + account;
