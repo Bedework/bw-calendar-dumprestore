@@ -18,7 +18,7 @@
 */
 package org.bedework.dumprestore.restore.rules;
 
-import org.bedework.calfacade.BwCalendar;
+import org.bedework.calfacade.BwCollection;
 import org.bedework.calfacade.svc.BwAuthUser;
 import org.bedework.dumprestore.restore.RestoreGlobals;
 
@@ -33,7 +33,7 @@ public class CollectionPathRule extends StringKeyRule {
   }
 
   public void pushEntity(String val) throws Exception {
-    BwCalendar ent;
+    BwCollection ent;
     try {
       ent = globals.rintf.getCalendar(val);
     } catch (Throwable t) {

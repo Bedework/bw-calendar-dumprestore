@@ -18,7 +18,7 @@
 */
 package org.bedework.dumprestore.restore.rules;
 
-import org.bedework.calfacade.BwCalendar;
+import org.bedework.calfacade.BwCollection;
 import org.bedework.calfacade.BwEvent;
 import org.bedework.calfacade.BwEventAnnotation;
 import org.bedework.calfacade.BwEventProxy;
@@ -56,7 +56,7 @@ public class ContainerPathRule extends EntityFieldRule {
         }
       }
 
-      BwCalendar cal = globals.rintf.getCalendar(stringFld());
+      BwCollection cal = globals.rintf.getCalendar(stringFld());
       if (cal == null) {
         error("No calendar for path " + stringFld());
       }

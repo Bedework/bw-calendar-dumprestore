@@ -18,7 +18,7 @@
 */
 package org.bedework.dumprestore.restore.rules;
 
-import org.bedework.calfacade.BwCalendar;
+import org.bedework.calfacade.BwCollection;
 import org.bedework.calfacade.BwDateTime;
 import org.bedework.calfacade.BwGroup;
 import org.bedework.calfacade.BwPrincipal;
@@ -332,7 +332,7 @@ public abstract class EntityFieldRule extends RestoreRule {
     }
   }
 
-  protected BwCalendar calendarFld() throws Exception {
+  protected BwCollection calendarFld() throws Exception {
     if (fldval == null) {
       throw new Exception("No value for " + tagName);
     }

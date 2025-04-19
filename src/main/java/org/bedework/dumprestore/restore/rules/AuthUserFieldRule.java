@@ -18,7 +18,7 @@
 */
 package org.bedework.dumprestore.restore.rules;
 
-import org.bedework.calfacade.BwCalendar;
+import org.bedework.calfacade.BwCollection;
 import org.bedework.calfacade.BwCategory;
 import org.bedework.calfacade.BwContact;
 import org.bedework.calfacade.BwEventProperty;
@@ -65,13 +65,13 @@ public class AuthUserFieldRule extends EntityFieldRule {
   @Override
   public void field(final String name) throws Throwable {
     BwEventProperty ep = null;
-    BwCalendar cal = null;
+    BwCollection cal = null;
 
     try {
       if (top() instanceof BwEventProperty) {
         ep = (BwEventProperty)pop();
-      } else if (top() instanceof BwCalendar) {
-        cal = (BwCalendar)pop();
+      } else if (top() instanceof BwCollection) {
+        cal = (BwCollection)pop();
       }
 
       BwAuthUser au = (BwAuthUser)top();

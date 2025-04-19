@@ -18,13 +18,13 @@
 */
 package org.bedework.dumprestore.prdump;
 
-import org.bedework.calfacade.BwCalendar;
+import org.bedework.calfacade.BwCollection;
 import org.bedework.calfacade.BwEvent;
 import org.bedework.calfacade.BwPrincipal;
 import org.bedework.calfacade.BwResource;
 import org.bedework.calfacade.svc.BwPreferences;
 import org.bedework.calfacade.svc.EventInfo;
-import org.bedework.calsvci.CalendarsI;
+import org.bedework.calsvci.CollectionsI;
 import org.bedework.convert.IcalTranslator;
 import org.bedework.dumprestore.Defs;
 import org.bedework.dumprestore.Utils;
@@ -204,9 +204,9 @@ public class DumpPrincipal extends Dumper {
     try {
       makeDir(Defs.collectionsDirName, false);
 
-      final CalendarsI cols = getSvc().getCalendarsHandler();
+      final CollectionsI cols = getSvc().getCollectionsHandler();
 
-      final BwCalendar home = cols.getHome();
+      final BwCollection home = cols.getHome();
 
       if (home == null) {
         warn("No home for " + pr.getPrincipalRef());
@@ -218,9 +218,9 @@ public class DumpPrincipal extends Dumper {
     }
   }
 
-  protected void dumpCol(final BwCalendar col, 
+  protected void dumpCol(final BwCollection col,
                          final boolean doChildren) {
-    final CalendarsI colsI = getSvc().getCalendarsHandler();
+    final CollectionsI colsI = getSvc().getCollectionsHandler();
 
     try {
       incCount(DumpGlobals.collections);
@@ -245,13 +245,13 @@ public class DumpPrincipal extends Dumper {
         return;
       }
       
-      final Collection<BwCalendar> cols = colsI.getChildren(col);
+      final Collection<BwCollection> cols = colsI.getChildren(col);
 
       if (Util.isEmpty(cols)) {
         return;
       }
 
-      for (final BwCalendar ch : cols) {
+      for (final BwCollection ch : cols) {
         dumpCol(ch, true);
       }
     } finally {

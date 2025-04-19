@@ -19,7 +19,7 @@
 
 package org.bedework.dumprestore.restore.rules;
 
-import org.bedework.calfacade.BwCalendar;
+import org.bedework.calfacade.BwCollection;
 import org.bedework.calfacade.BwCollectionLastmod;
 import org.bedework.dumprestore.restore.RestoreGlobals;
 
@@ -39,7 +39,7 @@ public class CollectionLastmodRule extends EntityRule {
   public void end(String ns, String name) throws Exception {
     BwCollectionLastmod lm = (BwCollectionLastmod)pop();
 
-    BwCalendar ent = (BwCalendar)top();
+    BwCollection ent = (BwCollection)top();
 
     ent.setLastmod(lm);
     lm.setDbEntity(ent);

@@ -18,12 +18,12 @@
 */
 package org.bedework.dumprestore.dump.dumpling;
 
-import org.bedework.calfacade.BwCalendar;
+import org.bedework.calfacade.BwCollection;
 import org.bedework.calfacade.BwEvent;
 import org.bedework.calfacade.BwResource;
 import org.bedework.calfacade.BwVersion;
 import org.bedework.calfacade.base.DumpEntity;
-import org.bedework.calfacade.wrappers.CalendarWrapper;
+import org.bedework.calfacade.wrappers.CollectionWrapper;
 import org.bedework.dumprestore.AliasEntry;
 import org.bedework.dumprestore.AliasInfo;
 import org.bedework.dumprestore.Counters;
@@ -129,8 +129,8 @@ public class Dumpling<T extends DumpEntity<?>>
         continue;
       }
 
-      if (d instanceof BwCalendar) {
-        dumpCollection((BwCalendar)d);
+      if (d instanceof BwCollection) {
+        dumpCollection((BwCollection)d);
         continue;
       }
 
@@ -158,7 +158,7 @@ public class Dumpling<T extends DumpEntity<?>>
     r.setContent(null);
   }
 
-  private void dumpCollection(final BwCalendar col) throws Throwable {
+  private void dumpCollection(final BwCollection col) throws Throwable {
     col.dump(xml);
 
     if (col.getInternalAlias() && !col.getTombstoned()) {
@@ -190,7 +190,7 @@ public class Dumpling<T extends DumpEntity<?>>
 
     // Should I be dumping external subscriptions?
 
-    final Collection<BwCalendar> cs = globals.di.getChildren(col);
+    final Collection<BwCollection> cs = globals.di.getChildren(col);
     if (cs != null) {
       //noinspection unchecked
       dumpCollection((Iterator<T>)cs.iterator());
@@ -210,11 +210,11 @@ public class Dumpling<T extends DumpEntity<?>>
       return null;
     }
 
-    if (!(val instanceof CalendarWrapper)) {
+    if (!(val instanceof CollectionWrapper)) {
       return val;
     }
 
-    return (T)((CalendarWrapper)val).fetchEntity();
+    return (T)((CollectionWrapper)val).fetchEntity();
   }
 
   protected void tagStart(final QName tag) {

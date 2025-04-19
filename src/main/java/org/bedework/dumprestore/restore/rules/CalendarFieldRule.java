@@ -19,7 +19,7 @@
 
 package org.bedework.dumprestore.restore.rules;
 
-import org.bedework.calfacade.BwCalendar;
+import org.bedework.calfacade.BwCollection;
 import org.bedework.dumprestore.restore.RestoreGlobals;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class CalendarFieldRule extends EntityFieldRule {
       return;
     }
 
-    BwCalendar ent = (BwCalendar)top();
+    BwCollection ent = (BwCollection)top();
 
     if (shareableContainedEntityTags(ent, name)) {
       return;

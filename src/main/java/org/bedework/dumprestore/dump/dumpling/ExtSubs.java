@@ -18,8 +18,8 @@
 */
 package org.bedework.dumprestore.dump.dumpling;
 
-import org.bedework.calfacade.BwCalendar;
-import org.bedework.calfacade.wrappers.CalendarWrapper;
+import org.bedework.calfacade.BwCollection;
+import org.bedework.calfacade.wrappers.CollectionWrapper;
 import org.bedework.dumprestore.AliasInfo;
 import org.bedework.dumprestore.Defs;
 import org.bedework.dumprestore.dump.DumpGlobals;
@@ -61,7 +61,7 @@ public class ExtSubs implements Defs, Logged {
     }
   }
 
-  private void getSubs(final Iterator<BwCalendar> it) throws Throwable {
+  private void getSubs(final Iterator<BwCollection> it) throws Throwable {
     while (it.hasNext()) {
       globals.counts[globals.collections]++;
 
@@ -69,7 +69,7 @@ public class ExtSubs implements Defs, Logged {
         info("        ... " + globals.counts[globals.collections]);
       }
 
-      BwCalendar col = unwrap(it.next());
+      BwCollection col = unwrap(it.next());
 
       if (col.getExternalSub() && !col.getTombstoned()) {
         globals.counts[globals.externalSubscriptions]++;
@@ -80,23 +80,23 @@ public class ExtSubs implements Defs, Logged {
                                              col.getOwnerHref()));
       }
 
-      Collection<BwCalendar> cs = globals.di.getChildren(col);
+      Collection<BwCollection> cs = globals.di.getChildren(col);
       if (cs != null) {
         getSubs(cs.iterator());
       }
     }
   }
 
-  private BwCalendar unwrap(final BwCalendar val) {
+  private BwCollection unwrap(final BwCollection val) {
     if (val == null) {
       return null;
     }
 
-    if (!(val instanceof CalendarWrapper)) {
+    if (!(val instanceof CollectionWrapper)) {
       return val;
     }
 
-    return ((CalendarWrapper)val).fetchEntity();
+    return ((CollectionWrapper)val).fetchEntity();
   }
 
   /* ====================================================================

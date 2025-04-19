@@ -22,7 +22,7 @@ import org.bedework.access.AccessException;
 import org.bedework.access.AccessPrincipal;
 import org.bedework.access.WhoDefs;
 import org.bedework.base.exc.BedeworkException;
-import org.bedework.calfacade.BwCalendar;
+import org.bedework.calfacade.BwCollection;
 import org.bedework.calfacade.BwEventAnnotation;
 import org.bedework.calfacade.BwGroup;
 import org.bedework.calfacade.BwPrincipal;
@@ -284,11 +284,11 @@ public class RestoreGlobals extends Counters {
 
   /**
    */
-  public static class CalendarMap extends HashMap<String, BwCalendar> {
+  public static class CalendarMap extends HashMap<String, BwCollection> {
     /**
      * @param val
      */
-    public void put(final BwCalendar val) {
+    public void put(final BwCollection val) {
       put(val.getPath(), val);
     }
   }

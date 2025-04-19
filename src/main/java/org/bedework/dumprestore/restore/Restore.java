@@ -25,7 +25,7 @@ import org.bedework.access.Privilege;
 import org.bedework.access.PrivilegeDefs;
 import org.bedework.access.Privileges;
 import org.bedework.access.WhoDefs;
-import org.bedework.calfacade.BwCalendar;
+import org.bedework.calfacade.BwCollection;
 import org.bedework.calfacade.BwPrincipal;
 import org.bedework.calfacade.configs.BasicSystemProperties;
 import org.bedework.calfacade.svc.BwAdminGroup;
@@ -293,7 +293,7 @@ public class Restore implements Logged, Defs, AutoCloseable {
     aces.add(Ace.makeAce(who, privs, null));
 
     makeCal(null, pu,
-            BwCalendar.calTypeFolder,
+            BwCollection.calTypeFolder,
             BasicSystemProperties.publicCalendarRoot,
             new String(new Acl(aces).encode()));
 
@@ -305,36 +305,36 @@ public class Restore implements Logged, Defs, AutoCloseable {
     aces.clear();
     aces.add(Ace.makeAce(AceWho.owner, privs, null));
 
-    final BwCalendar userRoot = 
+    final BwCollection userRoot =
             makeCal(null, pu,
-                    BwCalendar.calTypeFolder,
-                    BasicSystemProperties.userCalendarRoot,
+                    BwCollection.calTypeFolder,
+                    BasicSystemProperties.userCollectionRoot,
                     new String(new Acl(aces).encode()));
 
     makeUserHome(userRoot, pu);
     makeUserHome(userRoot, rootUser);
   }
 
-  private void makeUserHome(final BwCalendar userRoot,
+  private void makeUserHome(final BwCollection userRoot,
                             final BwPrincipal user) throws Throwable {
     // Create root user home and default calendar
 
-    final BwCalendar userHome = makeCal(userRoot, user,
-                                        BwCalendar.calTypeFolder,
-                                        user.getAccount(),
-                                        null);
+    final BwCollection userHome = makeCal(userRoot, user,
+                                          BwCollection.calTypeFolder,
+                                          user.getAccount(),
+                                          null);
     makeCal(userHome, user,
-            BwCalendar.calTypeCalendarCollection,
-            BasicSystemProperties.userDefaultCalendar,
+            BwCollection.calTypeCalendarCollection,
+            BasicSystemProperties.userDefaultCollection,
             null);
   }
 
-  private BwCalendar makeCal(final BwCalendar parent,
-                             final BwPrincipal owner,
-                             final int type,
-                             final String name,
-                             final String encodedAcl) throws Throwable {
-    final BwCalendar cal = new BwCalendar();
+  private BwCollection makeCal(final BwCollection parent,
+                               final BwPrincipal owner,
+                               final int type,
+                               final String name,
+                               final String encodedAcl) throws Throwable {
+    final BwCollection cal = new BwCollection();
 
     cal.setCalType(type);
 

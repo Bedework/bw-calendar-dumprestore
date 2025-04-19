@@ -21,7 +21,7 @@ package org.bedework.dumprestore;
 import org.bedework.access.PrivilegeDefs;
 import org.bedework.base.exc.BedeworkAccessException;
 import org.bedework.caldav.util.sharing.AccessType;
-import org.bedework.calfacade.BwCalendar;
+import org.bedework.calfacade.BwCollection;
 import org.bedework.calfacade.BwEvent;
 import org.bedework.calfacade.BwLocation;
 import org.bedework.calfacade.BwPrincipal;
@@ -31,7 +31,7 @@ import org.bedework.calfacade.svc.CalSvcIPars;
 import org.bedework.calfacade.svc.EventInfo;
 import org.bedework.calsvci.CalSvcFactoryDefault;
 import org.bedework.calsvci.CalSvcI;
-import org.bedework.calsvci.CalendarsI.CheckSubscriptionResult;
+import org.bedework.calsvci.CollectionsI.CheckSubscriptionResult;
 import org.bedework.calsvci.RestoreIntf.FixAliasResult;
 import org.bedework.dumprestore.dump.Dump;
 import org.bedework.dumprestore.restore.Restore;
@@ -281,7 +281,7 @@ public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
 
           try {
             final CheckSubscriptionResult csr =
-                    svci.getCalendarsHandler().checkSubscription(
+                    svci.getCollectionsHandler().checkSubscription(
                             ai.getPath());
 
             switch (csr) {
@@ -414,7 +414,7 @@ public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
 
           fix:
           for (final AliasInfo ai: ae.getAliases()) {
-            BwCalendar targetCol = null;
+            BwCollection targetCol = null;
             final AccessType a = new AccessType();
 
             try {
@@ -427,7 +427,7 @@ public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
 
               /* Try to fetch as sharee */
               try {
-                targetCol = svci.getCalendarsHandler().get(target);
+                targetCol = svci.getCollectionsHandler().get(target);
               } catch (final BedeworkAccessException ignored) {
                 ai.setNoAccess(true);
                 noAccessCt++;

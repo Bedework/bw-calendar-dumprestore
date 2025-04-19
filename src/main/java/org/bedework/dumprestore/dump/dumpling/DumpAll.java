@@ -18,7 +18,7 @@
 */
 package org.bedework.dumprestore.dump.dumpling;
 
-import org.bedework.calfacade.BwCalendar;
+import org.bedework.calfacade.BwCollection;
 import org.bedework.calfacade.BwCategory;
 import org.bedework.calfacade.BwContact;
 import org.bedework.calfacade.BwEvent;
@@ -86,10 +86,10 @@ public class DumpAll extends Dumpling {
     close();
 
     open();
-    new Dumpling<BwCalendar>(globals,
-                             new QName(sectionCollections),
-                             Counters.collections,
-                             xml).dumpSection(globals.di.getCalendars());
+    new Dumpling<BwCollection>(globals,
+                               new QName(sectionCollections),
+                               Counters.collections,
+                               xml).dumpSection(globals.di.getCalendars());
     close();
 
     open();

@@ -19,7 +19,7 @@
 
 package org.bedework.dumprestore.restore.rules;
 
-import org.bedework.calfacade.BwCalendar;
+import org.bedework.calfacade.BwCollection;
 import org.bedework.dumprestore.AliasEntry;
 import org.bedework.dumprestore.AliasInfo;
 import org.bedework.dumprestore.restore.RestoreGlobals;
@@ -46,7 +46,7 @@ public class CalendarRule extends EntityRule {
 
   @Override
   public void end(final String ns, final String name) throws Exception {
-    final BwCalendar entity = (BwCalendar)pop();
+    final BwCollection entity = (BwCollection)pop();
 
     globals.counts[globals.collections]++;
 

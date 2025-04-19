@@ -18,8 +18,8 @@
 */
 package org.bedework.dumprestore.prdump;
 
-import org.bedework.calfacade.BwCalendar;
-import org.bedework.calsvci.CalendarsI;
+import org.bedework.calfacade.BwCollection;
+import org.bedework.calsvci.CollectionsI;
 import org.bedework.dumprestore.Defs;
 import org.bedework.dumprestore.dump.DumpGlobals;
 
@@ -63,9 +63,9 @@ public class DumpPublic extends DumpPrincipal {
     try {
       makeDir(Defs.collectionsDirName, false);
 
-      final CalendarsI cols = getSvc().getCalendarsHandler();
+      final CollectionsI cols = getSvc().getCollectionsHandler();
 
-      final BwCalendar pubcal = cols.getPublicCalendars();
+      final BwCollection pubcal = cols.getPublicCollections();
 
       if (pubcal == null) {
         warn("Unable to fetch public calendar root");

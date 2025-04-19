@@ -19,7 +19,7 @@
 package org.bedework.dumprestore.nrestore;
 
 import org.bedework.base.exc.BedeworkException;
-import org.bedework.calfacade.BwCalendar;
+import org.bedework.calfacade.BwCollection;
 import org.bedework.calfacade.BwCategory;
 import org.bedework.calfacade.BwContact;
 import org.bedework.calfacade.BwLocation;
@@ -176,7 +176,7 @@ public class Restorer implements Logged, Closeable {
 
   protected void restoreCollections(final Path p) {
     try {
-      final DirRestore<BwCalendar> colRestore =
+      final DirRestore<BwCollection> colRestore =
               new DirRestore<>(p,
                                restoreCol);
       final EnumSet<FileVisitOption> opts = EnumSet.of(
@@ -321,7 +321,7 @@ public class Restorer implements Logged, Closeable {
     }
   };
 
-  private final Function<RestoreValue, RestoreResult<BwCalendar>> restoreCol = rv -> {
+  private final Function<RestoreValue, RestoreResult<BwCollection>> restoreCol = rv -> {
     final File f = rv.path.toFile();
 
     try {
@@ -330,10 +330,10 @@ public class Restorer implements Logged, Closeable {
               new XmlFile(f.getParentFile(),
                           name, false);
 
-      final BwCalendar col =
+      final BwCollection col =
               fxml.fromXml(catXml.getRoot(),
-                           BwCalendar.class,
-                           BwCalendar.getRestoreCallback());
+                           BwCollection.class,
+                           BwCollection.getRestoreCallback());
 
       final boolean home = f.getParent().equals(rv.globals.colsHome);
 
@@ -349,7 +349,7 @@ public class Restorer implements Logged, Closeable {
       }
 
       if (rv.globals.getMerging() && !f.isDirectory()) {
-        final BwCalendar curcol = getRi().getCalendar(col.getColPath());
+        final BwCollection curcol = getRi().getCalendar(col.getColPath());
         if (curcol != null) {
           incSkipped(Counters.collections);
 
