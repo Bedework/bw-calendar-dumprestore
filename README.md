@@ -3,38 +3,18 @@ Dump/restore code for bedework. Produces or consumes an external representation 
 
 ## Requirements
 
-1. JDK 17
+1. JDK 21
 2. Maven 3
 
-## Building Locally
+## Using this project
+See documentation at [github pages for this project](https://bedework.github.io/bw-calendar-dumprestore/)
 
-> mvn clean install
+## Reporting Issues
+Please report issues via the github issues tab at
+> https://github.com/Bedework/bw-calendar-dumprestore/issues
 
-## Releasing
+## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Releases of this fork are published to Maven Central via Sonatype.
-
-To create a release, you must have:
-
-1. Permissions to publish to the `org.bedework` groupId.
-2. `gpg` installed with a published key (release artifacts are signed).
-
-To perform a new release:
-
-> mvn -P bedework-dev release:clean release:prepare
-
-When prompted, select the desired version; accept the defaults for scm tag and next development version.
-When the build completes, and the changes are committed and pushed successfully, execute:
-
-> mvn -P bedework-dev release:perform
-
-For full details, see [Sonatype's documentation for using Maven to publish releases](http://central.sonatype.org/pages/apache-maven.html).
-
-## Release Notes
-### 4.2.0
-* First commit after splitting out of calendar engine module.
-* Add resources
-
-### 4.2.1
-* Update library versions
-* Pre-jakarta
+## Security - Vulnerability reporting
+See [SECURITY.md](SECURITY.md).

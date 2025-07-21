@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.bedework</groupId>
 		<artifactId>bedework-parent</artifactId>
-		<version>200-SNAPSHOT</version>
+		<version>224</version>
 	</parent>
 
 	<artifactId>bw-calendar-dumprestore</artifactId>
@@ -65,4 +65,39 @@
 			<artifactId>commons-digester3</artifactId>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+
+				<executions>
+					<execution>
+						<id>copy-generated-asciidoc</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.basedir}/docs/</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.build.directory}/generated-docs</directory>
+									<filtering>false</filtering>
+									<includes>
+										<include>index.html</include>
+										<include>asciidoctor.css</include>
+										<include>tocbot*/*</include>
+										<include>docinfo/*</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
 </project>

@@ -1,0 +1,7 @@
+[[dumprestore]]
+== Dumprestore
+Dump/restore code for bedework. Produces or consumes an external representation of the data.
+
+Note that this version is flagged for a vulnerability in digester3 -> commons-beanutils.
+
+The installed beanutils does not have a vulnerability but it might prevent this code from working. Digester3 is used for restore from the XML dump. We are currently migrating away from that.
