@@ -31,6 +31,12 @@
 <div class="paragraph">
 <p>Dump/restore code for bedework. Produces or consumes an external representation of the data.</p>
 </div>
+<div class="paragraph">
+<p>Note that this version is flagged for a vulnerability in digester3 &#8594; commons-beanutils.</p>
+</div>
+<div class="paragraph">
+<p>The installed beanutils does not have a vulnerability but it might prevent this code from working. Digester3 is used for restore from the XML dump. We are currently migrating away from that.</p>
+</div>
 <div class="sect2">
 <h3 id="_using_this_project">.1. Using this project</h3>
 <div class="paragraph">
@@ -58,7 +64,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-21 13:14:41 -0400
+Last updated 2025-07-21 19:19:12 UTC
 </div>
 </div>
 </body>
