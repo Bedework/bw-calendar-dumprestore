@@ -8,7 +8,7 @@
 	</parent>
 
 	<artifactId>bw-calendar-dumprestore</artifactId>
-	<version>5.0.0</version>
+	<version>5.1.0-SNAPSHOT</version>
 	<name>Bedework: calendar - dump/restore</name>
 
 	<dependencies>
