@@ -18,8 +18,7 @@
 */
 package org.bedework.dumprestore.dump.dumpling;
 
-import org.bedework.dumprestore.AliasEntry;
-import org.bedework.dumprestore.AliasInfo;
+import org.bedework.dumprestore.Counters;
 import org.bedework.dumprestore.dump.DumpGlobals;
 
 import java.util.Iterator;
@@ -31,7 +30,7 @@ import javax.xml.namespace.QName;
  * @author Mike Douglass
  * @version 1.0
  */
-public class DumpAliases extends Dumpling<AliasInfo> {
+public class DumpAliases extends Dumpling {
   /** Constructor
    *
    * @param globals dump global
@@ -41,35 +40,35 @@ public class DumpAliases extends Dumpling<AliasInfo> {
   }
 
   @Override
-  public void dumpSection(final Iterator it) throws Throwable {
+  public void dumpSection(final Iterator<?> it)  {
     tagStart(sectionTag);
 
     versionDate();
 
     open();
-    new Dumpling<AliasEntry>(globals,
-                            new QName(aliasesTag),
-                            globals.aliases,
-                            xml).dumpSection(
+    new Dumpling(globals,
+                 new QName(aliasesTag),
+                 Counters.aliases,
+                 xml).dumpSection(
             globals.aliasInfo.values().iterator());
     close();
 
     open();
-    new Dumpling<AliasInfo>(globals,
-                            new QName(extsubsTag),
-                            globals.externalSubscriptions,
-                            xml).dumpSection(
+    new Dumpling(globals,
+                 new QName(extsubsTag),
+                 Counters.externalSubscriptions,
+                 xml).dumpSection(
             globals.externalSubs.iterator());
     close();
 
     tagEnd(sectionTag);
   }
 
-  private void open() throws Throwable {
+  private void open() {
     globals.svci.beginTransaction();
   }
 
-  private void close() throws Throwable {
+  private void close() {
     globals.svci.endTransaction();
   }
 }

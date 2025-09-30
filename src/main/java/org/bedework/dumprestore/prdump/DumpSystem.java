@@ -18,7 +18,6 @@
 */
 package org.bedework.dumprestore.prdump;
 
-import org.bedework.calfacade.BwCollection;
 import org.bedework.calfacade.configs.BasicSystemProperties;
 import org.bedework.calsvci.CollectionsI;
 import org.bedework.dumprestore.Defs;
@@ -30,9 +29,9 @@ import org.bedework.dumprestore.dump.DumpGlobals;
  * @version 4.0
  */
 public class DumpSystem extends DumpPrincipal {
-  /* ===================================================================
+  /* =======================================================
    *                       Constructor
-   * =================================================================== */
+   * ======================================================= */
 
   /**
    * @param globals for dump
@@ -54,7 +53,7 @@ public class DumpSystem extends DumpPrincipal {
    *
    */
   public void doDump() {
-    /* Dump calendar collections - as we go we will create location, contact and
+    /* Dump calendar collections - as we go, we will create location, contact and
      * category directories.
      */
 
@@ -63,7 +62,7 @@ public class DumpSystem extends DumpPrincipal {
 
       final CollectionsI cols = getSvc().getCollectionsHandler();
 
-      final BwCollection usercal = cols.get(
+      final var usercal = cols.get(
               BasicSystemProperties.userCollectionRoot);
 
       if (usercal == null) {

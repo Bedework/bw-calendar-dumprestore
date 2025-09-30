@@ -47,7 +47,7 @@ import javax.xml.namespace.QName;
  *
  * @param <T> class we are dumping
  */
-public class Dumpling<T extends DumpEntity<?>>
+public class Dumpling
         implements Defs, Logged {
   protected DumpGlobals globals;
 
@@ -79,15 +79,14 @@ public class Dumpling<T extends DumpEntity<?>>
    * either in internal tables or in the db.</li></ul>
    *
    * @param it iterator over the entities
-   * @throws Throwable on fatal error
    */
-  public void dumpSection(final Iterator<T> it) throws Throwable {
+  public void dumpSection(final Iterator<?> it)  {
     info("Dumping " + sectionTag.getLocalPart());
 
     tagStart(sectionTag);
 
     if (it != null) {
-      dumpCollection(it);
+      dumpCollectionMembers(it);
     }
 
     tagEnd(sectionTag);
@@ -114,9 +113,9 @@ public class Dumpling<T extends DumpEntity<?>>
     xml.property(new QName(dumpDateTag), DateTimeUtil.isoDateTime());
   }
 
-  private void dumpCollection(final Iterator<T> it) throws Throwable {
+  private void dumpCollectionMembers(final Iterator<?> it) {
     while (it.hasNext()) {
-      final T d = unwrap(it.next());
+      final var entity = it.next();
 
       globals.counts[countIndex]++;
 
@@ -124,27 +123,32 @@ public class Dumpling<T extends DumpEntity<?>>
         info("        ... " + globals.counts[countIndex]);
       }
 
-      if (d instanceof BwResource) {
-        dumpResource((BwResource)d);
+      if (entity instanceof final BwResource r) {
+        dumpResource(r);
         continue;
       }
 
-      if (d instanceof BwCollection) {
-        dumpCollection((BwCollection)d);
+      if (entity instanceof final BwCollection c) {
+        dumpCollection(unwrap(c));
         continue;
       }
 
-      if (d instanceof BwEvent) {
-        dumpEvent((BwEvent)d);
+      if (entity instanceof final BwEvent e) {
+        dumpEvent(e);
         continue;
       }
 
       /* Just dump any remaining classes - no special treatment */
-      d.dump(xml);
+      if (entity instanceof final DumpEntity<?> d) {
+        d.dump(xml);
+        continue;
+      }
+
+      warn("Unknown entity type: " + entity.getClass());
     }
   }
 
-  private void dumpResource(final BwResource r) throws Throwable {
+  private void dumpResource(final BwResource r) {
     globals.di.getResourceContent(r);
 
     if (r.getContent() == null) {
@@ -158,7 +162,7 @@ public class Dumpling<T extends DumpEntity<?>>
     r.setContent(null);
   }
 
-  private void dumpCollection(final BwCollection col) throws Throwable {
+  private void dumpCollection(final BwCollection col) {
     col.dump(xml);
 
     if (col.getInternalAlias() && !col.getTombstoned()) {
@@ -192,12 +196,11 @@ public class Dumpling<T extends DumpEntity<?>>
 
     final Collection<BwCollection> cs = globals.di.getChildren(col);
     if (cs != null) {
-      //noinspection unchecked
-      dumpCollection((Iterator<T>)cs.iterator());
+      dumpCollectionMembers(cs.iterator());
     }
   }
 
-  private void dumpEvent(final BwEvent ev) throws Throwable {
+  private void dumpEvent(final BwEvent ev) {
     ev.dump(xml);
 
     if (ev.getOverrides() != null) {
@@ -205,16 +208,16 @@ public class Dumpling<T extends DumpEntity<?>>
     }
   }
 
-  private T unwrap(final T val) {
+  private BwCollection unwrap(final BwCollection val) {
     if (val == null) {
       return null;
     }
 
-    if (!(val instanceof CollectionWrapper)) {
+    if (!(val instanceof final CollectionWrapper cw)) {
       return val;
     }
 
-    return (T)((CollectionWrapper)val).fetchEntity();
+    return cw.fetchEntity();
   }
 
   protected void tagStart(final QName tag) {
@@ -246,9 +249,9 @@ public class Dumpling<T extends DumpEntity<?>>
     }
   }
 
-  /* ====================================================================
+  /* ====================================================
    *                   Logged methods
-   * ==================================================================== */
+   * ==================================================== */
 
   private final BwLogger logger = new BwLogger();
 

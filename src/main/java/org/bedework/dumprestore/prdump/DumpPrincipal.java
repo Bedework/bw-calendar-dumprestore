@@ -32,7 +32,6 @@ import org.bedework.dumprestore.dump.DumpGlobals;
 import org.bedework.util.calendar.IcalendarUtil;
 import org.bedework.util.calendar.ScheduleMethods;
 import org.bedework.util.misc.Util;
-import org.bedework.base.response.Response;
 
 import net.fortuna.ical4j.model.Calendar;
 
@@ -96,7 +95,7 @@ import static org.bedework.base.response.Response.Status.ok;
  * @version 4.0
  */
 public class DumpPrincipal extends Dumper {
-  private BwPrincipal pr;
+  private BwPrincipal<?> pr;
 
   private IcalTranslator icalTrans;
 
@@ -117,7 +116,7 @@ public class DumpPrincipal extends Dumper {
    * @param pr the principal
    * @return true if ok
    */
-  public boolean open(final BwPrincipal pr) {
+  public boolean open(final BwPrincipal<?> pr) {
     this.pr = pr;
     if (!open(Utils.principalDirPath(pr))) {
       return false;
@@ -136,7 +135,7 @@ public class DumpPrincipal extends Dumper {
 
     /* Create a directory for the principal */
 
-    Response resp = makeDir(dirName, true);
+    var resp = makeDir(dirName, true);
     if (resp.getStatus() == failed) {
       return false;
     }
@@ -197,7 +196,7 @@ public class DumpPrincipal extends Dumper {
     dumpContacts(false);
     dumpLocations(false);
 
-    /* Dump calendar collections - as we go we will create location, contact and
+    /* Dump calendar collections - as we go, we will create location, contact and
      * category directories.
      */
 
@@ -326,7 +325,7 @@ public class DumpPrincipal extends Dumper {
   private class ResourceConsumer implements Consumer<BwResource> {
     @Override
     public void accept(final BwResource res) {
-      /* dump the resource in it's native format if possible */
+      /* dump the resource in its native format if possible */
 
       try {
         final File f = makeFile(res.getName());

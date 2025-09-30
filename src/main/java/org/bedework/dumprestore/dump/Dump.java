@@ -148,9 +148,8 @@ public class Dump implements Logged, Defs {
   }
 
   /**
-   * @throws Throwable on error
    */
-  public void close() throws Throwable {
+  public void close() {
     if (globals.svci != null) {
       globals.svci.close();
     }
@@ -158,9 +157,8 @@ public class Dump implements Logged, Defs {
   }
 
   /**
-   * @throws Throwable on error
    */
-  public void doDump() throws Throwable {
+  public void doDump() {
     if (!newDumpFormat) {
       new DumpAll(globals).dumpSection(null);
       new DumpAliases(globals).dumpSection(null);
@@ -254,7 +252,7 @@ public class Dump implements Logged, Defs {
             CalSvcIPars.getDumpRestorePars(logIdDump,
                                            adminUserAccount,
                                            !newDumpFormat);   // superUser,
-    return new CalSvcFactoryDefault().getSvc(pars);
+    return new CalSvcFactoryDefault().getSvc(getClass().getClassLoader(), pars);
   }
 
   /* ====================================================================
