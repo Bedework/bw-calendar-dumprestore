@@ -77,7 +77,7 @@ public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
 
   private boolean newRestoreFormat;
   
-  private boolean newDumpFormat;
+  private boolean newDumpFormat = true;
 
   private String curSvciOwner;
 
@@ -491,30 +491,16 @@ public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
                                      a);
 
               switch (far) {
-                case ok:
-                  okCt++;
-                  break;
-                case noAccess:
-                  noAccessCt++;
-                  break;
-                case wrongAccess:
-                  warn("Incompatible access for " + ai.getPath());
-                  break;
-                case notFound:
-                  notFoundCt++;
-                  break;
-                case circular:
-                  warn("Circular aliases for " + ai.getPath());
-                  break;
-                case broken:
-                  notFoundCt++;
-                  break;
-                case reshared:
-                  fixedCt++;
-                  break;
-                case failed:
-                  failedCt++;
-                  break;
+                case ok -> okCt++;
+                case noAccess -> noAccessCt++;
+                case wrongAccess ->
+                        warn("Incompatible access for " + ai.getPath());
+                case notFound -> notFoundCt++;
+                case circular ->
+                        warn("Circular aliases for " + ai.getPath());
+                case broken -> notFoundCt++;
+                case reshared -> fixedCt++;
+                case failed -> failedCt++;
               } // switch
 
               if ((far != FixAliasResult.ok) &&
@@ -1361,12 +1347,14 @@ public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
     }
 
     if (svci == null) {
-      final CalSvcIPars pars = CalSvcIPars.getIndexerPars(curSvciOwner,
-                                                          publicAdmin);
+      final CalSvcIPars pars =
+              CalSvcIPars.getIndexerPars(curSvciOwner,
+                                         publicAdmin);
       //CalSvcIPars pars = CalSvcIPars.getServicePars(curSvciOwner,
       //                                              publicAdmin,   // publicAdmin
       //                                              true);   // Allow super user
-      svci = new CalSvcFactoryDefault().getSvc(pars);
+      svci = new CalSvcFactoryDefault().getSvc(
+              getClass().getClassLoader(), pars);
     }
 
     svci.open();
