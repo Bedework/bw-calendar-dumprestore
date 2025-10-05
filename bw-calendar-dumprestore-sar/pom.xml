@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.bedework</groupId>
+    <artifactId>bw-calendar-dumprestore</artifactId>
+    <version>5.1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>bw-calendar-dumprestore-sar</artifactId>
+  <name>Bedework: calendar - dump/restore config sar</name>
+  <packaging>pom</packaging>
+
+  <properties>
+    <org.bedework.sar.dependency>org.bedework.calendar.dumprestore.service</org.bedework.sar.dependency>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-sar-resources</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/sar</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.basedir}/src/main/resources</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <archive>
+            <index>true</index>
+
+            <manifest>
+              <addDefaultSpecificationEntries>
+                true
+              </addDefaultSpecificationEntries>
+              <addDefaultImplementationEntries>
+                true
+              </addDefaultImplementationEntries>
+            </manifest>
+
+            <manifestEntries>
+              <Implementation-URL>${project.url}</Implementation-URL>
+              <Java-Version>${java.version}</Java-Version>
+              <Java-Vendor>${java.vendor}</Java-Vendor>
+              <Os-Name>${os.name}</Os-Name>
+              <Os-Arch>${os.arch}</Os-Arch>
+              <Os-Version>${os.version}</Os-Version>
+              <Scm-Url>${project.scm.url}</Scm-Url>
+              <Scm-Connection>${project.scm.connection}</Scm-Connection>
+              <Scm-Revision>${buildNumber}</Scm-Revision>
+              <Dependencies>${org.bedework.sar.dependency}</Dependencies>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.coderplus.maven.plugins</groupId>
+        <artifactId>copy-rename-maven-plugin</artifactId>
+
+        <executions>
+          <execution>
+            <id>rename-file</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <sourceFile>${project.build.directory}/${project.build.finalName}.jar</sourceFile>
+              <destinationFile>${project.build.directory}/${project.build.finalName}.sar</destinationFile>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.bedework</groupId>
+        <artifactId>bw-util-maven-deploy</artifactId>
+
+        <configuration>
+          <sarName>${project.artifactId}</sarName>
+          <baseDirPath>${project.basedir}/../..</baseDirPath>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

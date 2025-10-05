@@ -72,7 +72,7 @@ jobs:
           git config --local user.name "github-actions"
           git pull
           cp -r ./target/reports docs/
-          cp -r ./target/reports src/main/asciidoc/
+          cp -r ./target/reports bw-calendar-dumprestore-asciidocs/src/main/asciidoc/
           git add .
           git commit -m "deploy generated dependency check report"
           git push

@@ -16,7 +16,7 @@
     specific language governing permissions and limitations
     under the License.
 */
-package org.bedework.dumprestore;
+package org.bedework.dumprestore.service;
 
 import org.bedework.access.PrivilegeDefs;
 import org.bedework.base.exc.BedeworkAccessException;
@@ -32,10 +32,15 @@ import org.bedework.calsvci.CalSvcFactoryDefault;
 import org.bedework.calsvci.CalSvcI;
 import org.bedework.calsvci.CollectionsI.CheckSubscriptionResult;
 import org.bedework.calsvci.RestoreIntf.FixAliasResult;
+import org.bedework.dumprestore.AliasEntry;
+import org.bedework.dumprestore.AliasInfo;
+import org.bedework.dumprestore.BwDumpRestoreMBean;
+import org.bedework.dumprestore.Defs;
 import org.bedework.dumprestore.dump.Dump;
 import org.bedework.dumprestore.restore.Restore;
 import org.bedework.indexer.BwIndexCtlMBean;
 import org.bedework.util.jmx.ConfBase;
+import org.bedework.util.jmx.InfoLines;
 import org.bedework.util.jmx.MBeanUtil;
 import org.bedework.util.misc.Util;
 import org.bedework.util.timezones.DateTimeUtil;
@@ -61,7 +66,7 @@ import java.util.TreeSet;
 public class BwDumpRestore extends ConfBase<DumpRestorePropertiesImpl>
         implements BwDumpRestoreMBean {
   /* Name of the directory holding the config data */
-  private static final String confDirName = "bwengine";
+  private static final String confDirName = "dumprestore";
 
   private List<AliasInfo> externalSubs;
 

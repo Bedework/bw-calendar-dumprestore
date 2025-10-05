@@ -9,95 +9,13 @@
 
 	<artifactId>bw-calendar-dumprestore</artifactId>
 	<version>5.1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
 	<name>Bedework: calendar - dump/restore</name>
 
-	<dependencies>
-		<!-- Project Dependencies -->
-		<dependency>
-			<groupId>org.bedework.caleng</groupId>
-			<artifactId>bw-calendar-engine-api</artifactId>
-		</dependency>
-
-		<!-- Bedework Dependencies -->
-
-		<dependency>
-			<groupId>org.bedework</groupId>
-			<artifactId>bw-base</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.bedework</groupId>
-			<artifactId>bw-calendar-api</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.bedework</groupId>
-			<artifactId>bw-calendar-convert</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.bedework</groupId>
-			<artifactId>bw-calendar-facade</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.bedework</groupId>
-			<artifactId>bw-util-jmx</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.bedework</groupId>
-			<artifactId>bw-util-misc</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.bedework</groupId>
-			<artifactId>bw-util-tz</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.bedework</groupId>
-			<artifactId>bw-util2-calendar</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-digester3</artifactId>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<groupId>org.apache.maven.plugins</groupId>
-
-				<executions>
-					<execution>
-						<id>copy-generated-asciidoc</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.basedir}/docs/</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${project.build.directory}/generated-docs</directory>
-									<filtering>false</filtering>
-									<includes>
-										<include>index.html</include>
-										<include>asciidoctor.css</include>
-										<include>tocbot*/*</include>
-										<include>docinfo/*</include>
-									</includes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-		</plugins>
-	</build>
+	<modules>
+		<module>bw-calendar-dumprestore-common</module>
+		<module>bw-calendar-dumprestore-asciidocs</module>
+		<module>bw-calendar-dumprestore-service</module>
+		<module>bw-calendar-dumprestore-sar</module>
+	</modules>
 </project>

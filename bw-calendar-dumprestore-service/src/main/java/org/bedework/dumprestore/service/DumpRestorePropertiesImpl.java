@@ -16,7 +16,7 @@
     specific language governing permissions and limitations
     under the License.
 */
-package org.bedework.dumprestore;
+package org.bedework.dumprestore.service;
 
 import org.bedework.calfacade.configs.DumpRestoreProperties;
 import org.bedework.util.config.ConfInfo;
@@ -90,7 +90,7 @@ public class DumpRestorePropertiesImpl
 
   @Override
   public String toString() {
-    ToString ts = new ToString(this);
+    final ToString ts = new ToString(this);
 
     ts.append("account", getAccount());
     ts.append("dataIn", getDataIn());
@@ -102,7 +102,7 @@ public class DumpRestorePropertiesImpl
 
   @Override
   public DumpRestorePropertiesImpl cloneIt() {
-    DumpRestorePropertiesImpl clone = new DumpRestorePropertiesImpl();
+    final DumpRestorePropertiesImpl clone = new DumpRestorePropertiesImpl();
 
     clone.setName(getName());
 

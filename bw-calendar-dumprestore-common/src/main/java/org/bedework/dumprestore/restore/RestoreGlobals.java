@@ -38,7 +38,7 @@ import org.bedework.calsvci.RestoreIntf;
 import org.bedework.dumprestore.AliasEntry;
 import org.bedework.dumprestore.AliasInfo;
 import org.bedework.dumprestore.Counters;
-import org.bedework.dumprestore.InfoLines;
+import org.bedework.util.jmx.InfoLines;
 import org.bedework.util.misc.Util;
 import org.bedework.util.timezones.Timezones;
 import org.bedework.util.timezones.TimezonesException;
@@ -143,7 +143,7 @@ public class RestoreGlobals extends Counters {
    * ******************************************************************** */
 
   /** Accumulate unmatched ids */
-  public Set<String> unmatchedTzids = new TreeSet<String>();
+  public Set<String> unmatchedTzids = new TreeSet<>();
 
   /** */
   public long convertedTzids;
@@ -166,7 +166,7 @@ public class RestoreGlobals extends Counters {
 
   /** This is not the way to use the digester. We could possibly build the xml
    * rules directly from the hibernate schema or from java annotations.
-   *
+   *<br/>
    * For the moment I just need to get this going.
    */
   public boolean inOwnerKey;
@@ -181,11 +181,11 @@ public class RestoreGlobals extends Counters {
 
   /** Messages for subscriptions changed   // PRE3.5
    */
-  public ArrayList<String> subscriptionFixes = new ArrayList<String>();
+  public ArrayList<String> subscriptionFixes = new ArrayList<>();
 
   /** User entry for owner of public entities. This is used to fix up entries.
    */
-  private BwPrincipal publicUser;
+  private BwPrincipal<?> publicUser;
 
   /** Incremented if we can't map something */
   public int calMapErrors = 0;
@@ -263,7 +263,7 @@ public class RestoreGlobals extends Counters {
     public void put(final int keyid, final int eventid) {
       ArrayList<Integer> al = get(keyid);
       if (al == null) {
-        al = new ArrayList<Integer>();
+        al = new ArrayList<>();
         put(keyid, al);
       }
 
@@ -306,7 +306,7 @@ public class RestoreGlobals extends Counters {
 
   /** Members to add to admin groups */
   public HashMap<String, ArrayList<PrincipalHref>> adminGroupMembers =
-    new HashMap<String, ArrayList<PrincipalHref>>();
+          new HashMap<>();
 
   /** */
   public CalendarMap calendarsTbl = new CalendarMap();
@@ -376,22 +376,22 @@ public class RestoreGlobals extends Counters {
   /**
    * @param val
    */
-  public void setPublicUser(final BwPrincipal val) {
+  public void setPublicUser(final BwPrincipal<?> val) {
     publicUser = val;
   }
 
   /** Get the account which owns public entities
    *
    * @return BwPrincipal account
-   * @throws Throwable if account name not defined
+   * @throws RuntimeException if account name not defined
    */
-  public BwPrincipal getPublicUser() throws Throwable {
+  public BwPrincipal<?> getPublicUser() {
     return publicUser;
   }
 
   /** Who we are pretending to be for the core classes
    */
-  public BwPrincipal currentUser;
+  public BwPrincipal<?> currentUser;
 
   /**
    * @return system params
@@ -404,36 +404,31 @@ public class RestoreGlobals extends Counters {
 
   /**
    * @return collection string
-   * @throws Exception
    */
-  public Collection<String> getRootUsers() throws Exception {
+  public Collection<String> getRootUsers() {
     if (rootUsers != null) {
       return rootUsers;
     }
 
-    rootUsers = new ArrayList<String>();
+    rootUsers = new ArrayList<>();
 
-    String rus = getSyspars().getRootUsers();
+    final String rus = getSyspars().getRootUsers();
 
     if (rus == null) {
       return rootUsers;
     }
 
-    try {
-      int pos = 0;
+    int pos = 0;
 
-      while (pos < rus.length()) {
-        int nextPos = rus.indexOf(",", pos);
-        if (nextPos < 0) {
-          rootUsers.add(rus.substring(pos));
-          break;
-        }
-
-        rootUsers.add(rus.substring(pos, nextPos));
-        pos = nextPos + 1;
+    while (pos < rus.length()) {
+      final int nextPos = rus.indexOf(",", pos);
+      if (nextPos < 0) {
+        rootUsers.add(rus.substring(pos));
+        break;
       }
-    } catch (Throwable t) {
-      throw new Exception(t);
+
+      rootUsers.add(rus.substring(pos, nextPos));
+      pos = nextPos + 1;
     }
 
     return rootUsers;
@@ -445,18 +440,18 @@ public class RestoreGlobals extends Counters {
   @Override
   public void stats(final List<String> infoLines) {
     if (!subscriptionFixes.isEmpty()) {
-      for (String m: subscriptionFixes) {
+      for (final String m: subscriptionFixes) {
         info(infoLines, m);
       }
 
       info(infoLines, " ");
     }
 
-    if (messages.size() > 0) {
+    if (!messages.isEmpty()) {
       info(infoLines, "Errors and warnings. See log for details. ");
       info(infoLines, " ");
 
-      for (RestoreMessage rm: messages) {
+      for (final RestoreMessage rm: messages) {
         info(infoLines, rm.toString());
       }
 
@@ -465,8 +460,8 @@ public class RestoreGlobals extends Counters {
 
     if (!unmatchedTzids.isEmpty()) {
       info(infoLines, "    Unmatched timezone ids: " + unmatchedTzids.size());
-      for (String tzid: unmatchedTzids) {
-        StringBuilder sb = new StringBuilder();
+      for (final String tzid: unmatchedTzids) {
+        final StringBuilder sb = new StringBuilder();
 
         sb.append(tzid);
 
@@ -491,20 +486,20 @@ public class RestoreGlobals extends Counters {
   }
 
   /**
-   * @throws Throwable
    */
-  public void init() throws Throwable {
-    Configurations conf = CalSvcFactoryDefault.getSystemConfig();
+  public void init() {
+    final Configurations conf = CalSvcFactoryDefault.getSystemConfig();
     syspars = conf.getSystemProperties();
   }
 
-  private Map<String, BwPrincipal> principalMap = new HashMap<String, BwPrincipal>();
+  private final Map<String, BwPrincipal<?>> principalMap =
+          new HashMap<>();
 
   private long lastFlush = System.currentTimeMillis();
   private static final long flushInt = 1000 * 30 * 5; // 5 minutes
 
-  private BwPrincipal mappedPrincipal(final String val) {
-    long now = System.currentTimeMillis();
+  private BwPrincipal<?> mappedPrincipal(final String val) {
+    final long now = System.currentTimeMillis();
 
     if ((now - lastFlush) > flushInt) {
       principalMap.clear();
@@ -540,21 +535,17 @@ public class RestoreGlobals extends Counters {
    * @param p
    * @return prefix
    */
-  public static String getPrincipalHrefPrefix(final BwPrincipal p) {
-    try {
-      if (p instanceof BwUser) {
-        return getUserPrincipalRoot();
-      }
+  public static String getPrincipalHrefPrefix(final BwPrincipal<?> p) {
+    if (p instanceof BwUser) {
+      return getUserPrincipalRoot();
+    }
 
-      if (p instanceof BwAdminGroup) {
-        return getBwadmingroupPrincipalRoot();
-      }
+    if (p instanceof BwAdminGroup) {
+      return getBwadmingroupPrincipalRoot();
+    }
 
-      if (p instanceof BwGroup) {
-        return getGroupPrincipalRoot();
-      }
-    } catch (Throwable t) {
-      throw new RuntimeException(t);
+    if (p instanceof BwGroup) {
+      return getGroupPrincipalRoot();
     }
 
     return null;
@@ -565,7 +556,7 @@ public class RestoreGlobals extends Counters {
   /**
    * @param p a principal
    */
-  public void setPrincipalHref(final BwPrincipal p) {
+  public void setPrincipalHref(final BwPrincipal<?> p) {
     String account = p.getAccount();
 
     if (account == null) {
@@ -573,7 +564,7 @@ public class RestoreGlobals extends Counters {
       p.setAccount(account);
       badUserCount++;
       errors++;
-      String ln = "Approximately at line number " +
+      final String ln = "Approximately at line number " +
           digester.getDocumentLocator().getLineNumber();
 
       messages.errorMessage(ln + ": bad user");
@@ -587,29 +578,37 @@ public class RestoreGlobals extends Counters {
       return;
     }
 
-    if (p instanceof BwUser) {
-      p.setPrincipalRef(Util.buildPath(false, getUserPrincipalRoot(), "/", p.getAccount()));
-      return;
+    switch (p) {
+      case final BwUser bwUser -> {
+        p.setPrincipalRef(
+                Util.buildPath(false, getUserPrincipalRoot(), "/",
+                               p.getAccount()));
+        return;
+      }
+      case final BwAdminGroup bwAdminGroup -> {
+        p.setPrincipalRef(
+                Util.buildPath(false, getBwadmingroupPrincipalRoot(),
+                               "/", p.getAccount()));
+        return;
+      }
+      case final BwGroup<?> bwGroup -> {
+        p.setPrincipalRef(
+                Util.buildPath(false, getGroupPrincipalRoot(), "/",
+                               p.getAccount()));
+        return;
+      }
+      default -> {
+      }
     }
 
-    if (p instanceof BwAdminGroup) {
-      p.setPrincipalRef(Util.buildPath(false, getBwadmingroupPrincipalRoot(), "/", p.getAccount()));
-      return;
-    }
-
-    if (p instanceof BwGroup) {
-      p.setPrincipalRef(Util.buildPath(false, getGroupPrincipalRoot(), "/", p.getAccount()));
-      return;
-    }
   }
 
   /**
    * @param id
    * @param whoType
    * @return Sring principal
-   * @throws Throwable
    */
-  public String getPrincipalHref(final String id, final int whoType) throws Throwable {
+  public String getPrincipalHref(final String id, final int whoType) {
     if (id.startsWith("/")) {
       // Assume a principal
 
@@ -630,10 +629,9 @@ public class RestoreGlobals extends Counters {
   /**
    * @param val
    * @return BwPrincipal
-   * @throws Throwable
    */
-  public BwPrincipal getPrincipal(final String val) throws Throwable {
-    BwPrincipal p = mappedPrincipal(val);
+  public BwPrincipal<?> getPrincipal(final String val) {
+    final BwPrincipal<?> p = mappedPrincipal(val);
 
     if (p != null) {
       return p;
@@ -644,7 +642,7 @@ public class RestoreGlobals extends Counters {
     }
 
     if (val.startsWith(BwPrincipal.userPrincipalRoot)) {
-      BwPrincipal pr = rintf.getPrincipal(val);
+      final BwPrincipal<?> pr = rintf.getPrincipal(val);
 
       if (pr != null) {
         principalMap.put(val, pr);
@@ -654,15 +652,15 @@ public class RestoreGlobals extends Counters {
     }
 
     if (val.startsWith(getGroupPrincipalRoot())) {
-      throw new Exception("unimplemented");
+      throw new RuntimeException("unimplemented");
     }
 
     return null;
   }
 
   private class RestorePrincipalInfo extends PrincipalInfo {
-    RestorePrincipalInfo(final BwPrincipal principal,
-                         final BwPrincipal authPrincipal) {
+    RestorePrincipalInfo(final BwPrincipal<?> principal,
+                         final BwPrincipal<?> authPrincipal) {
       super(principal, authPrincipal, null, false);
     }
 
@@ -679,7 +677,7 @@ public class RestoreGlobals extends Counters {
       superUser = val;
     }
 
-    void setPrincipal(final BwPrincipal principal) {
+    void setPrincipal(final BwPrincipal<?> principal) {
       this.principal = principal;
       authPrincipal = principal;
       calendarHomePath = null;
@@ -699,7 +697,7 @@ public class RestoreGlobals extends Counters {
    * @param pr
    * @return initialized principal info
    */
-  public PrincipalInfo getPrincipalInfo(final BwPrincipal pr) {
+  public PrincipalInfo getPrincipalInfo(final BwPrincipal<?> pr) {
     if (principalInfo != null) {
       if (principalInfo.getAuthPrincipal().equals(pr)) {
         return principalInfo;

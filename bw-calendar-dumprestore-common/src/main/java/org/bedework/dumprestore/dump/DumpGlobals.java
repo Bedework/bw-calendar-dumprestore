@@ -52,7 +52,7 @@ import org.bedework.calsvci.DumpIntf;
 import org.bedework.dumprestore.AliasEntry;
 import org.bedework.dumprestore.AliasInfo;
 import org.bedework.dumprestore.Counters;
-import org.bedework.dumprestore.InfoLines;
+import org.bedework.util.jmx.InfoLines;
 import org.bedework.util.xml.XmlEmit;
 
 import java.io.Writer;
@@ -112,10 +112,9 @@ public class DumpGlobals extends Counters {
   /**
    * @param val output writer for old style dump
    * @param aliases output writer for aliases
-   * @throws Throwable on error
    */
   public void setOut(final Writer val,
-                     final Writer aliases) throws Throwable {
+                     final Writer aliases) {
     out = val;
 
     xml = new XmlEmit();

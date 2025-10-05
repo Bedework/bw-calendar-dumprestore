@@ -26,13 +26,13 @@ import org.bedework.calsvci.CalSvcI;
 import org.bedework.dumprestore.AliasEntry;
 import org.bedework.dumprestore.AliasInfo;
 import org.bedework.dumprestore.Defs;
-import org.bedework.dumprestore.InfoLines;
 import org.bedework.dumprestore.dump.dumpling.DumpAliases;
 import org.bedework.dumprestore.dump.dumpling.DumpAll;
 import org.bedework.dumprestore.dump.dumpling.ExtSubs;
 import org.bedework.dumprestore.prdump.DumpPrincipal;
 import org.bedework.dumprestore.prdump.DumpPublic;
 import org.bedework.dumprestore.prdump.DumpSystem;
+import org.bedework.util.jmx.InfoLines;
 import org.bedework.util.logging.BwLogger;
 import org.bedework.util.logging.Logged;
 
