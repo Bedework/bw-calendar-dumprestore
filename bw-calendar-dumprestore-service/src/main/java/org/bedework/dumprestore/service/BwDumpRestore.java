@@ -34,7 +34,6 @@ import org.bedework.calsvci.CollectionsI.CheckSubscriptionResult;
 import org.bedework.calsvci.RestoreIntf.FixAliasResult;
 import org.bedework.dumprestore.AliasEntry;
 import org.bedework.dumprestore.AliasInfo;
-import org.bedework.dumprestore.BwDumpRestoreMBean;
 import org.bedework.dumprestore.Defs;
 import org.bedework.dumprestore.dump.Dump;
 import org.bedework.dumprestore.restore.Restore;

@@ -16,7 +16,7 @@
     specific language governing permissions and limitations
     under the License.
 */
-package org.bedework.dumprestore;
+package org.bedework.dumprestore.service;
 
 import org.bedework.calfacade.configs.DumpRestoreProperties;
 import org.bedework.util.jmx.ConfBaseMBean;
