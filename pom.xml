@@ -18,4 +18,30 @@
 		<module>bw-calendar-dumprestore-service</module>
 		<module>bw-calendar-dumprestore-sar</module>
 	</modules>
+
+	<dependencyManagement>
+		<!-- These dependencies ensure all transitive dependencies
+   during builds of this project resolve to project.version
+   and NOT the version set in bedework-parent
+-->
+		<dependencies>
+			<dependency>
+				<groupId>org.bedework</groupId>
+				<artifactId>bw-calendar-dumprestore-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.bedework</groupId>
+				<artifactId>bw-calendar-dumprestore-service</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.bedework</groupId>
+				<artifactId>bw-calendar-dumprestore-sar</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
